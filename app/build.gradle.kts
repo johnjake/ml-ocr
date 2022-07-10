@@ -18,32 +18,31 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions("typeDimen", "colorDimen")
+    flavorDimensions("colorDimen", "typeDimen")
     productFlavors {
+        create("builtincamera") {
+            dimension = "typeDimen"
+            applicationIdSuffix =".camera"
+            versionCode = 3
+        }
+        create("filesystem") {
+            dimension = "typeDimen"
+            applicationIdSuffix = ".file"
+            versionCode = 4
+        }
+
         create("red") {
-            setDimension("colorDimen")
+            dimension = "colorDimen"
             applicationIdSuffix = ".red"
             versionCode = 1
         }
         create("green") {
-            setDimension("colorDimen")
+            dimension = "colorDimen"
             applicationIdSuffix = ".green"
             versionCode = 2
-        }
-
-        create("cameraSystem") {
-            setDimension("typeDimen")
-            applicationIdSuffix =".cameraSystem"
-            versionCode = 3
-        }
-        create("fileSystem") {
-            setDimension("typeDimen")
-            applicationIdSuffix = ".fileSystem"
-            versionCode = 4
         }
     }
 
@@ -71,8 +70,8 @@ android {
     }
     val red = "red"
     val green = "green"
-    val camera = "cameraSystem"
-    val file = "fileSystem"
+    val camera = "builtincamera"
+    val file = "filesystem"
     sourceSets {
         this.getByName("$red"){
             this.java.srcDir("src/$red/java")
@@ -101,6 +100,12 @@ android {
         this.getByName("$file"){
             this.res.srcDir("src/$file/res")
         }
+    }
+
+    this.buildOutputs.all {
+        val variants = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+        val variantName: String = variants.name
+        variants.outputFileName = "${android.defaultConfig.applicationId}.apk"
     }
 }
 

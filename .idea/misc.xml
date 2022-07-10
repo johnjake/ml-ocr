@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ml-ocr/app/src/fileSystemGreen/res/drawable/ic_launcher_background.xml" value="0.3225" />
+        <entry key="..\:/ml-ocr/app/src/fileSystemGreen/res/layout/activity_main.xml" value="0.3921875" />
+        <entry key="..\:/ml-ocr/app/src/greenBuiltincamera/res/drawable/ic_launcher_background.xml" value="0.3225" />
+        <entry key="..\:/ml-ocr/app/src/greenBuiltincamera/res/layout/activity_main.xml" value="0.3921875" />
         <entry key="..\:/ml-ocr/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
       </map>
     </option>
