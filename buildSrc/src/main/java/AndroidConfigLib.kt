@@ -10,4 +10,5 @@ object AndroidConfigLib {
     const val lifeCycleVersion = "2.6.0-alpha01"
     const val saveStateVersion = "2.6.0-alpha01"
     const val cameraVersion = "1.0.2"
+    const val timberVersion = "4.7.1"
 }

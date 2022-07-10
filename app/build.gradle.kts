@@ -9,6 +9,7 @@ import AndroidConfigLib.lifeCycleVersion
 import AndroidConfigLib.lottieVersion
 import AndroidConfigLib.materialVersion
 import AndroidConfigLib.saveStateVersion
+import AndroidConfigLib.timberVersion
 
 plugins {
     id("com.android.application")
@@ -168,6 +169,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-cast-framework:21.0.1")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
     implementation("org.beanshell:bsh:2.0b4")
+
+    implementation("com.jakewharton.timber:timber:$timberVersion")
 
     /** animation **/
     implementation ("com.airbnb.android:lottie:$lottieVersion")
