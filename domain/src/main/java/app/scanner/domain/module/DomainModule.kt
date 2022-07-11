@@ -1,6 +1,7 @@
 package app.scanner.domain.module
 
 import app.scanner.domain.repository.CheckVariant
+import app.scanner.domain.repository.ReaderRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,4 +14,8 @@ object DomainModule {
     @Provides
     @ViewModelScoped
     fun checkVariantRepository() = CheckVariant()
+
+    @Provides
+    @ViewModelScoped
+    fun providesOcrRepository() = ReaderRepository()
 }

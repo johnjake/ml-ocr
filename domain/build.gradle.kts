@@ -46,6 +46,13 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.40.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("com.google.android.gms:play-services-tasks:18.0.0")
+
+    /** google machine learning text recognition **/
+    implementation ("com.google.android.gms:play-services-mlkit-text-recognition:16.0.0")
+
+    implementation("org.beanshell:bsh:2.0b4")
+
     implementation ("androidx.camera:camera-camera2:$cameraVersion")
     implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
     implementation("com.jakewharton.timber:timber:$timberVersion")
