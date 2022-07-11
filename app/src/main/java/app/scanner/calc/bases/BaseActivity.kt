@@ -66,11 +66,6 @@ abstract class BaseActivity<T : ViewBinding>(
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        CameraBuilder.closeCamera()
-    }
-
     open fun setUpObserver() {}
     open fun setUpView() {}
 }

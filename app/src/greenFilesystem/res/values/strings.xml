@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Green File System</string>
+    <string name="button_input">Open Gallery</string>
 </resources>
