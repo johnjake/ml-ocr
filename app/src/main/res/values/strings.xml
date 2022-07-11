@@ -4,4 +4,6 @@
     <string name="close_dialog">Close Reader</string>
     <string name="invalid_files">Invalid image file!</string>
     <string name="clear_text">Clear Result</string>
+    <string name="scan_input">Scan Input</string>
+    <string name="open_gallery">Open Gallery</string>
 </resources>

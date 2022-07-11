@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import app.scanner.domain.utils.EMPTY
 import app.scanner.domain.utils.PATTERN_MATH
 import app.scanner.domain.extension.await
+import app.scanner.domain.utils.INVALID_MATH_EXPRESSION
+import app.scanner.domain.utils.UNKNOWN_RESULT
 import bsh.Interpreter
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
@@ -19,10 +21,10 @@ class ReaderRepository : ReaderAction {
 
     override suspend fun getExpression(expression: String): String =
         withContext(Dispatchers.IO) {
-            val mathExpression = expression.replace(PATTERN_MATH.toRegex(), "")
+            val mathExpression = expression.replace(PATTERN_MATH.toRegex(), EMPTY)
             when {
                 mathExpression.isNotEmpty() -> mathExpression
-                else -> "Invalid math expression"
+                else -> INVALID_MATH_EXPRESSION
             }
         }
 
@@ -33,7 +35,7 @@ class ReaderRepository : ReaderAction {
                 interpreter.eval("result =$mathExpression")
                 interpreter["result"].toString()
             } catch (ex: Exception) {
-                "0"
+                UNKNOWN_RESULT
             }
         }
 

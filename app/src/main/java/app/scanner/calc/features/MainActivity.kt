@@ -12,6 +12,7 @@ import app.scanner.calc.features.adapter.CalculatedAdapter
 import app.scanner.domain.utils.CAMERA_SYSTEM
 import app.scanner.domain.utils.FILE_SYSTEM
 import app.scanner.domain.extension.getBitmap
+import app.scanner.domain.extension.getDefaultBitmap
 import app.scanner.domain.extension.gone
 import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
@@ -30,6 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private val viewModel: MainViewModel by viewModels()
     private val listResult: MutableList<MathData>? = arrayListOf()
     private var isFile: Boolean = false
+    private var isScanFile: Boolean = false
     private var savedBitmap: Bitmap? = null
 
     override fun setUpView() {
@@ -54,8 +56,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>
 
             btnOpenSystem.setOnClickListener {
                 when {
-                    isFile -> readFileSystem()
-                    else -> readCameraSystem()
+                    isFile -> { if(!isScanFile) readFileSystem() else readFromFile() }
+                    else -> readFromCamera()
                 }
             }
         }
@@ -87,13 +89,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         textInImageLayout.gone()
         previewImage.gone()
         btnOpenSystem.visible()
+        if(!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
     }
 
     private fun readFileSystem() {
         openGallery.selectImage()
+        isScanFile = false
     }
 
-    private fun readCameraSystem() {
+    private fun readFromFile() {
+        isScanFile = false
+        val recognizer = TextRecognition.getClient()
+        binding.apply {
+            previewImage.visible()
+            savedBitmap = previewImage.getBitmap()
+            viewModel.recognizeExpression(
+                recognizer = recognizer,
+                bitmap = savedBitmap ?: root.context.getDefaultBitmap()
+            )
+        }
+    }
+
+    private fun readFromCamera() {
         val recognizer = TextRecognition.getClient()
         binding.apply {
             savedBitmap = viewFinder.bitmap
@@ -101,7 +118,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             previewImage.setImageBitmap(viewFinder.bitmap!!)
             viewModel.recognizeExpression(
                 recognizer = recognizer,
-                bitmap = savedBitmap ?: root.context.getBitmap()
+                bitmap = savedBitmap ?: root.context.getDefaultBitmap()
             )
         }
     }
@@ -146,10 +163,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         super.onResume()
         if(openGallery.isRead) {
             require(openGallery.getUri()!= null) { toast(getString(R.string.invalid_files)) }
+            isScanFile = true
             binding.previewImage.apply {
                 visibility = View.VISIBLE
                 setImageURI(openGallery.getUri())
             }
+            binding.btnOpenSystem.text = getString(R.string.scan_input)
         }
     }
 
