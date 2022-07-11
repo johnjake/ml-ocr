@@ -1,31 +1,78 @@
 package app.scanner.domain.manager
 
 import android.content.Context
+import androidx.annotation.RestrictTo
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraControl
+import androidx.camera.core.CameraInfo
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
+import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import app.scanner.domain.getActivity
+import app.scanner.domain.toast
+import timber.log.Timber
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 class CameraManager(
     private val context: Context,
     private val previewView: PreviewView,
+    private val lifecycleOwner: LifecycleOwner
  ) {
     private val provider: CameraProvider by lazy { CameraProvider(context, previewView) }
+    private lateinit var camera: Camera
+    private lateinit var cameraController: CameraControl
+    private lateinit var cameraDetails: CameraInfo
 
-    fun builderInit(cameraBinding: (cameraProvider: ProcessCameraProvider,
-                                    cameraSelector: CameraSelector,
-                                    preview: Preview
-    ) -> Unit) {
+    fun build() {
         provider.providerInstance().addListener({
         val process = provider.processProvider()
         val preview = provider.providePreview()
         val selector = provider.selectorProvider()
-        cameraBinding(process, selector, preview)
+        cameraPreview(process, selector, preview)
         }, ContextCompat.getMainExecutor(context))
     }
 
-    fun cameraPreview() {
+    private fun cameraPreview(
+        cameraProvider: ProcessCameraProvider,
+        cameraSelector: CameraSelector,
+        preview: Preview
+    ) {
+        try {
+            cameraProvider.unbindAll()
+            camera = cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview)
 
+                camera.apply {
+                    when {
+                        cameraInfo.hasFlashUnit() -> {
+                            cameraController = cameraControl
+                            cameraDetails = cameraInfo
+                        }
+                        else -> {
+                            getActivity(context)?.toast("Phone does not have flash")
+                        }
+                    }
+                }
+        } catch (exc: Exception) {
+            Timber.e("Error -> ${exc.localizedMessage}")
+        }
+    }
+
+    private fun flashOn(flash: Boolean) {
+        when(flash) {
+            true -> {
+                cameraController.enableTorch(cameraDetails.torchState.value == TorchState.OFF)
+                cameraDetails.torchState.observe(lifecycleOwner) { torchState ->
+                    when (torchState) {
+                        TorchState.OFF -> Timber.d("### flash Off")
+                        else -> Timber.d("### flash On")
+                    }
+                }
+            }
+            else -> Timber.d("### flash Off")
+        }
     }
 }
