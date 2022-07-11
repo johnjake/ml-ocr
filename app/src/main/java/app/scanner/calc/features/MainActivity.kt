@@ -1,11 +1,8 @@
 package app.scanner.calc.features
 
 import android.graphics.Bitmap
-import android.util.TypedValue
 import android.view.View
 import androidx.activity.viewModels
-import androidx.annotation.ColorInt
-import androidx.annotation.IntegerRes
 import androidx.lifecycle.lifecycleScope
 import app.scanner.calc.R
 import app.scanner.calc.bases.BaseActivity
