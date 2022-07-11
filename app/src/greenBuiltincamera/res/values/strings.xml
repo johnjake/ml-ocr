@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Green Camera</string>
+    <string name="button_input">Scan Input</string>
 </resources>

@@ -30,7 +30,7 @@
     android:layout_height="0dp"
     android:visibility="gone"
     app:cardCornerRadius="10dp"
-    app:layout_constraintBottom_toTopOf="@id/extractTextButton"
+    app:layout_constraintBottom_toTopOf="@id/btnOpenSystem"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -86,13 +86,13 @@
 </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/extractTextButton"
+        android:id="@+id/btnOpenSystem"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:elevation="2dp"
         android:padding="10dp"
-        android:text="Add Input"
+        android:text="@string/button_input"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +102,6 @@
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="extractTextButton" />
+        app:constraint_referenced_ids="btnOpenSystem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
