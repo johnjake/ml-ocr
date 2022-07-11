@@ -2,4 +2,5 @@
     <string name="app_name">Calculator Scanner</string>
     <string name="reader_calculator">Reader Calculator</string>
     <string name="close_dialog">Close Reader</string>
+    <string name="invalid_files">Invalid image file!</string>
 </resources>

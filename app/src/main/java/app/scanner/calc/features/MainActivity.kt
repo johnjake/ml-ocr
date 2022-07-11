@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     override fun onResume() {
         super.onResume()
         if(openGallery.init) {
-            require(openGallery.getUri()!= null) { toast("Invalid image file!") }
+            require(openGallery.getUri()!= null) { toast(getString(R.string.invalid_files)) }
             binding.previewImage.apply {
                 visibility = View.VISIBLE
                 setImageURI(openGallery.getUri())
