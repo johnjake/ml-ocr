@@ -25,11 +25,11 @@
 
    <com.google.android.material.card.MaterialCardView
     android:id="@+id/textInImageLayout"
-    android:layout_margin="50dp"
+    android:layout_margin="@dimen/dimens_res_50dp"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:visibility="gone"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="@dimen/dimens_res_10dp"
     app:layout_constraintBottom_toTopOf="@id/btnOpenSystem"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -43,12 +43,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:padding="@dimen/dimens_res_8dp">
 
             <ImageView
                 android:id="@+id/imgClose"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/dimens_res_30dp"
+                android:layout_height="@dimen/dimens_res_30dp"
                 android:contentDescription="@string/close_dialog"
                 android:src="@drawable/ic_close"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -58,11 +58,11 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="@dimen/dimens_res_10dp"
                 android:text="@string/reader_calculator"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/dimens_text_size_16sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -82,11 +82,11 @@
 
             <ImageView
                 android:id="@+id/imgClear"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/dimens_res_30dp"
+                android:layout_height="@dimen/dimens_res_30dp"
                 android:contentDescription="@string/clear_text"
                 android:src="@drawable/ic_clear_text"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/dimens_res_10dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,11 +97,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOpenSystem"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/dimens_res_250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:elevation="2dp"
-        android:padding="10dp"
+        android:layout_marginBottom="@dimen/dimens_res_25dp"
+        android:elevation="@dimen/dimens_res_2dp"
+        android:padding="@dimen/dimens_res_10dp"
         android:text="@string/button_input"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
