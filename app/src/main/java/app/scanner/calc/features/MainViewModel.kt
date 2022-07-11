@@ -6,6 +6,7 @@ import app.scanner.calc.bases.BaseState
 import app.scanner.calc.bases.BaseViewModel
 import app.scanner.domain.repository.CheckVariant
 import app.scanner.domain.repository.ReaderAction
+import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognizer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,6 +42,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    suspend fun getMathExpression(expression: String): String = ocrReader.mathConverter(expression)
+    suspend fun getMathExpression(expression: String): String = ocrReader.getExpression(expression)
     suspend fun getMathResult(mathExpression: String): String = ocrReader.mathConverter(mathExpression)
+    suspend fun getProcessResult(recognizeText: Text): String = ocrReader.processResult(recognizeText)
 }

@@ -8,4 +8,5 @@ interface ReaderAction {
     suspend fun readText(recognizer: TextRecognizer, bitmap: Bitmap): Text
     suspend fun getExpression(expression: String): String
     suspend fun mathConverter(mathExpression: String): String
+    suspend fun processResult(recognizeText: Text): String
 }

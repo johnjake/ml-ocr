@@ -1,6 +1,7 @@
 package app.scanner.domain.repository
 
 import android.graphics.Bitmap
+import app.scanner.domain.EMPTY
 import app.scanner.domain.PATTERN_MATH
 import app.scanner.domain.extension.await
 import bsh.Interpreter
@@ -34,5 +35,17 @@ class ReaderRepository : ReaderAction {
             } catch (ex: Exception) {
                 "0"
             }
+        }
+
+    override suspend fun processResult(recognizeText: Text): String =
+        withContext(Dispatchers.IO) {
+            var resultText: String = EMPTY
+            for (block in recognizeText.textBlocks) {
+                for (line in block.lines) {
+                    resultText += line.text + " \n"
+                }
+                resultText += "\n"
+            }
+            resultText
         }
 }
