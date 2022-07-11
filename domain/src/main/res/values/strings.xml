@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="system_variant">
+        <item>fileSystem</item>
+        <item>cameraSystem</item>
+    </string-array>
+</resources>

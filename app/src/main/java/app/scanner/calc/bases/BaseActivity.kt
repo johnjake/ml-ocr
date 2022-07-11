@@ -9,7 +9,6 @@ import androidx.viewbinding.ViewBinding
 import app.scanner.calc.hilt.HiltActivityEntry
 import app.scanner.domain.REQUEST_CODE_PERMISSIONS
 import app.scanner.domain.REQUIRED_PERMISSIONS
-import app.scanner.domain.manager.CameraBuilder
 import app.scanner.domain.toast
 
 abstract class BaseActivity<T : ViewBinding>(
@@ -65,7 +64,6 @@ abstract class BaseActivity<T : ViewBinding>(
             }
         }
     }
-
     open fun setUpObserver() {}
     open fun setUpView() {}
 }

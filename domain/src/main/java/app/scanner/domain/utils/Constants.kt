@@ -9,3 +9,5 @@ const val WIDTH_SIZE = 1080
 const val HEIGHT_SIZE = 1080
 val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 const val PATTERN_MATH = "[^0-9()+\\-*/.]"
+const val FILE_SYSTEM = "fileSystem"
+const val CAMERA_SYSTEM = "cameraSystem"

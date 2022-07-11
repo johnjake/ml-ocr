@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Red Camera</string>
     <string name="button_input">Scan Input</string>
+    <string name="variant_type">cameraSystem</string>
 </resources>
