@@ -9,9 +9,10 @@ import app.scanner.calc.bases.BaseActivity
 import app.scanner.calc.bases.BaseState
 import app.scanner.calc.databinding.ActivityMainBinding
 import app.scanner.calc.features.adapter.CalculatedAdapter
-import app.scanner.domain.CAMERA_SYSTEM
-import app.scanner.domain.FILE_SYSTEM
+import app.scanner.domain.utils.CAMERA_SYSTEM
+import app.scanner.domain.utils.FILE_SYSTEM
 import app.scanner.domain.extension.getBitmap
+import app.scanner.domain.extension.getDefaultBitmap
 import app.scanner.domain.extension.gone
 import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
@@ -21,7 +22,6 @@ import app.scanner.domain.toast
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>
     (ActivityMainBinding::inflate) {
@@ -31,19 +31,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private val viewModel: MainViewModel by viewModels()
     private val listResult: MutableList<MathData>? = arrayListOf()
     private var isFile: Boolean = false
+    private var isScanFile: Boolean = false
     private var savedBitmap: Bitmap? = null
 
     override fun setUpView() {
         super.setUpView()
         lifecycle.addObserver(openGallery)
         viewModel.verifyFlavors(getString(R.string.variant_type))
-        val recognizer = TextRecognition.getClient()
 
         binding.apply {
             imgClose.setOnClickListener {
-                textInImageLayout.gone()
-                previewImage.gone()
-                btnOpenSystem.visible()
+                closeResult()
+            }
+
+            imgClear.setOnClickListener {
+                listResult?.clear()
+                calcAdapter.submitList(listResult)
+                closeResult()
             }
 
             rvExpression.apply {
@@ -51,15 +55,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             }
 
             btnOpenSystem.setOnClickListener {
-                if(isFile) openGallery.selectImage()
-                else {
-                    previewImage.visible()
-                    savedBitmap = binding.viewFinder.bitmap
-                    previewImage.setImageBitmap(binding.viewFinder.bitmap!!)
-                    viewModel.recognizeExpression(
-                        recognizer = recognizer,
-                        bitmap = savedBitmap ?: binding.root.context.getBitmap()
-                    )
+                when {
+                    isFile -> { if(!isScanFile) readFileSystem() else readFromFile() }
+                    else -> readFromCamera()
                 }
             }
         }
@@ -84,6 +82,44 @@ class MainActivity : BaseActivity<ActivityMainBinding>
                     is BaseState.OnReadFailed -> handleFailedReader(state.error)
                 }
             }
+        }
+    }
+
+    private fun ActivityMainBinding.closeResult() {
+        textInImageLayout.gone()
+        previewImage.gone()
+        btnOpenSystem.visible()
+        if(!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
+    }
+
+    private fun readFileSystem() {
+        openGallery.selectImage()
+        isScanFile = false
+    }
+
+    private fun readFromFile() {
+        isScanFile = false
+        val recognizer = TextRecognition.getClient()
+        binding.apply {
+            previewImage.visible()
+            savedBitmap = previewImage.getBitmap()
+            viewModel.recognizeExpression(
+                recognizer = recognizer,
+                bitmap = savedBitmap ?: root.context.getDefaultBitmap()
+            )
+        }
+    }
+
+    private fun readFromCamera() {
+        val recognizer = TextRecognition.getClient()
+        binding.apply {
+            savedBitmap = viewFinder.bitmap
+            previewImage.visible()
+            previewImage.setImageBitmap(viewFinder.bitmap!!)
+            viewModel.recognizeExpression(
+                recognizer = recognizer,
+                bitmap = savedBitmap ?: root.context.getDefaultBitmap()
+            )
         }
     }
 
@@ -125,12 +161,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>
 
     override fun onResume() {
         super.onResume()
-        if(openGallery.init) {
+        if(openGallery.isRead) {
             require(openGallery.getUri()!= null) { toast(getString(R.string.invalid_files)) }
+            isScanFile = true
             binding.previewImage.apply {
                 visibility = View.VISIBLE
                 setImageURI(openGallery.getUri())
             }
+            binding.btnOpenSystem.text = getString(R.string.scan_input)
         }
     }
 

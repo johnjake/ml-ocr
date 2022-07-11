@@ -6,27 +6,30 @@ import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import timber.log.Timber
+import app.scanner.domain.utils.OPEN_ALL_FILES
 
 class FileGallery(
     private val registry : ActivityResultRegistry
 ) : DefaultLifecycleObserver {
     lateinit var getContent : ActivityResultLauncher<String>
-    private lateinit var uri: Uri
-    var init: Boolean = false
+    private lateinit var imageUri: Uri
+    var isRead: Boolean = false
     override fun onCreate(owner: LifecycleOwner) {
-        getContent = registry.register("key", owner, ActivityResultContracts.GetContent()) {
-            uri = it
-            init = true
+        getContent = registry.register("key", owner, ActivityResultContracts.GetContent()) { uri ->
+            imageUri = uri
+            isRead = true
         }
     }
     fun selectImage() {
-        getContent.launch("image/*")
+        getContent.launch(OPEN_ALL_FILES)
     }
 
     fun getUri(): Uri? {
         return when {
-            uri.path?.isNotEmpty() == true -> uri
+            imageUri.path?.isNotEmpty() == true -> {
+                isRead = false
+                imageUri
+            }
             else -> null
         }
     }
