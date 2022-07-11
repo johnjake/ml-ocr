@@ -6,4 +6,6 @@
     <string name="clear_text">Clear Result</string>
     <string name="scan_input">Scan Input</string>
     <string name="open_gallery">Open Gallery</string>
+    <string name="input_text">Input: %s</string>
+    <string name="input_result">Result: %s</string>
 </resources>
