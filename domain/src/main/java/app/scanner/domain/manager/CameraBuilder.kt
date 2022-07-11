@@ -79,7 +79,6 @@ class CameraBuilder(
 
    companion object {
        private lateinit var process: ProcessCameraProvider
-
        fun closeCamera() {
            process.unbindAll()
        }
