@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimens_text_size_1sp">1sp</dimen>
+    <dimen name="dimens_text_size_2sp">2sp</dimen>
+    <dimen name="dimens_text_size_8sp">8sp</dimen>
+    <dimen name="dimens_text_size_10sp">10sp</dimen>
+    <dimen name="dimens_text_size_11sp">11sp</dimen>
+    <dimen name="dimens_text_size_12sp">12sp</dimen>
+    <dimen name="dimens_text_size_13sp">13sp</dimen>
+    <dimen name="dimens_text_size_14sp">14sp</dimen>
+    <dimen name="dimens_text_size_15sp">15sp</dimen>
+    <dimen name="dimens_text_size_16sp">16sp</dimen>
+
+    <dimen name="dimens_res_2dp">2dp</dimen>
+    <dimen name="dimens_res_3dp">3dp</dimen>
+    <dimen name="dimens_res_4dp">4dp</dimen>
+    <dimen name="dimens_res_5dp">5dp</dimen>
+    <dimen name="dimens_res_6dp">6dp</dimen>
+    <dimen name="dimens_res_7dp">7dp</dimen>
+    <dimen name="dimens_res_8dp">8dp</dimen>
+    <dimen name="dimens_res_9dp">9dp</dimen>
+    <dimen name="dimens_res_10dp">10dp</dimen>
+    <dimen name="dimens_res_11dp">11dp</dimen>
+    <dimen name="dimens_res_12dp">12dp</dimen>
+    <dimen name="dimens_res_13dp">13dp</dimen>
+    <dimen name="dimens_res_14dp">14dp</dimen>
+    <dimen name="dimens_res_15dp">15dp</dimen>
+    <dimen name="dimens_res_16dp">16dp</dimen>
+    <dimen name="dimens_res_25dp">25dp</dimen>
+    <dimen name="dimens_res_30dp">30dp</dimen>
+    <dimen name="dimens_res_50dp">50dp</dimen>
+    <dimen name="dimens_res_74dp">74dp</dimen>
+    <dimen name="dimens_res_250dp">250dp</dimen>
+</resources>

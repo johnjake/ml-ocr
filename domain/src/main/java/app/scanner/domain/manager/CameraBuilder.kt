@@ -14,8 +14,8 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import app.scanner.domain.R
-import app.scanner.domain.getActivity
-import app.scanner.domain.toast
+import app.scanner.domain.extension.getActivity
+import app.scanner.domain.extension.toast
 import timber.log.Timber
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)

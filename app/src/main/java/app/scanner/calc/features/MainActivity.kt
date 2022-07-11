@@ -18,7 +18,7 @@ import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
 import app.scanner.domain.manager.CameraBuilder
 import app.scanner.domain.model.MathData
-import app.scanner.domain.toast
+import app.scanner.domain.extension.toast
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
@@ -60,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
                     isFileSystem -> {
                         when {
                             !isScanFile -> readFileSystem()
-                            else -> readFromFile()
+                            else -> recognizeTextImage()
                         }
                     }
                     else -> {
@@ -106,7 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         isScanFile = false
     }
 
-    private fun readFromFile() {
+    private fun recognizeTextImage() {
         isScanFile = false
         val recognizer = TextRecognition.getClient()
         binding.apply {
