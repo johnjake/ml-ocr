@@ -1,11 +1,11 @@
 package app.scanner.calc.features.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.scanner.calc.R
 import app.scanner.calc.databinding.ItemExpressionBinding
 import app.scanner.domain.model.MathData
 
@@ -24,11 +24,11 @@ class CalculatedAdapter : ListAdapter<MathData, CalculatedAdapter.RecognizerView
         private val binding: ItemExpressionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(data: MathData) {
+            val context = binding.root.context
             binding.apply {
-                textViewInput.text = "Input: ${data.expression}"
-                textViewResult.text = "Result: ${data.result}"
+                textViewInput.text =  context.getString(R.string.input_text, data.expression)
+                textViewResult.text = context.getString(R.string.input_result, data.result)
             }
         }
     }
