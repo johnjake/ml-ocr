@@ -1,6 +1,6 @@
 package app.scanner.calc.bases
 
-import app.scanner.domain.EMPTY
+import app.scanner.domain.utils.EMPTY
 import com.google.mlkit.vision.text.Text
 
 sealed class BaseState {

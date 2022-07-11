@@ -9,8 +9,8 @@ import app.scanner.calc.bases.BaseActivity
 import app.scanner.calc.bases.BaseState
 import app.scanner.calc.databinding.ActivityMainBinding
 import app.scanner.calc.features.adapter.CalculatedAdapter
-import app.scanner.domain.CAMERA_SYSTEM
-import app.scanner.domain.FILE_SYSTEM
+import app.scanner.domain.utils.CAMERA_SYSTEM
+import app.scanner.domain.utils.FILE_SYSTEM
 import app.scanner.domain.extension.getBitmap
 import app.scanner.domain.extension.gone
 import app.scanner.domain.extension.visible
@@ -21,7 +21,6 @@ import app.scanner.domain.toast
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>
     (ActivityMainBinding::inflate) {
@@ -37,13 +36,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         super.setUpView()
         lifecycle.addObserver(openGallery)
         viewModel.verifyFlavors(getString(R.string.variant_type))
-        val recognizer = TextRecognition.getClient()
+
 
         binding.apply {
             imgClose.setOnClickListener {
-                textInImageLayout.gone()
-                previewImage.gone()
-                btnOpenSystem.visible()
+                closeResult()
+            }
+
+            imgClear.setOnClickListener {
+                listResult?.clear()
+                calcAdapter.submitList(listResult)
+                closeResult()
             }
 
             rvExpression.apply {
@@ -53,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             btnOpenSystem.setOnClickListener {
                 if(isFile) openGallery.selectImage()
                 else {
+                    val recognizer = TextRecognition.getClient()
                     previewImage.visible()
                     savedBitmap = binding.viewFinder.bitmap
                     previewImage.setImageBitmap(binding.viewFinder.bitmap!!)
@@ -64,6 +68,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             }
         }
    }
+
+    private fun ActivityMainBinding.closeResult() {
+        textInImageLayout.gone()
+        previewImage.gone()
+        btnOpenSystem.visible()
+    }
 
     override fun setUpObserver() {
         super.setUpObserver()
@@ -125,7 +135,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
 
     override fun onResume() {
         super.onResume()
-        if(openGallery.init) {
+        if(openGallery.isRead) {
             require(openGallery.getUri()!= null) { toast(getString(R.string.invalid_files)) }
             binding.previewImage.apply {
                 visibility = View.VISIBLE

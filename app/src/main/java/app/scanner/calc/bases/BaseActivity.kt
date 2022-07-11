@@ -7,8 +7,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
 import app.scanner.calc.hilt.HiltActivityEntry
-import app.scanner.domain.REQUEST_CODE_PERMISSIONS
-import app.scanner.domain.REQUIRED_PERMISSIONS
+import app.scanner.domain.utils.REQUEST_CODE_PERMISSIONS
+import app.scanner.domain.utils.REQUIRED_PERMISSIONS
 import app.scanner.domain.toast
 
 abstract class BaseActivity<T : ViewBinding>(

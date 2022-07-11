@@ -1,4 +1,4 @@
-package app.scanner.domain
+package app.scanner.domain.utils
 
 import android.Manifest
 
@@ -11,3 +11,4 @@ val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 const val PATTERN_MATH = "[^0-9()+\\-*/.]"
 const val FILE_SYSTEM = "fileSystem"
 const val CAMERA_SYSTEM = "cameraSystem"
+const val OPEN_ALL_FILES = "image/*"

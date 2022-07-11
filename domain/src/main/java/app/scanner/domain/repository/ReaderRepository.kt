@@ -1,8 +1,8 @@
 package app.scanner.domain.repository
 
 import android.graphics.Bitmap
-import app.scanner.domain.EMPTY
-import app.scanner.domain.PATTERN_MATH
+import app.scanner.domain.utils.EMPTY
+import app.scanner.domain.utils.PATTERN_MATH
 import app.scanner.domain.extension.await
 import bsh.Interpreter
 import com.google.mlkit.vision.common.InputImage
