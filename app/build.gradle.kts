@@ -122,6 +122,8 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":domain")))
+
     implementation("androidx.core:core-ktx:$ktxVersion")
     implementation("androidx.appcompat:appcompat:$compatVersion")
     implementation("com.google.android.material:material:$materialVersion")

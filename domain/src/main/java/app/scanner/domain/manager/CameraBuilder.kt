@@ -1,6 +1,7 @@
 package app.scanner.domain.manager
 
 import android.content.Context
+import androidx.annotation.NonNull
 import androidx.annotation.RestrictTo
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraControl
@@ -17,10 +18,10 @@ import app.scanner.domain.toast
 import timber.log.Timber
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-class CameraManager(
-    private val context: Context,
-    private val previewView: PreviewView,
-    private val lifecycleOwner: LifecycleOwner
+class CameraBuilder(
+    @NonNull private val context: Context,
+    @NonNull private val previewView: PreviewView,
+    @NonNull private val lifecycleOwner: LifecycleOwner
  ) {
     private val provider: CameraProvider by lazy { CameraProvider(context, previewView) }
     private lateinit var camera: Camera
@@ -29,7 +30,7 @@ class CameraManager(
 
     fun build() {
         provider.providerInstance().addListener({
-        val process = provider.processProvider()
+        process = provider.processProvider()
         val preview = provider.providePreview()
         val selector = provider.selectorProvider()
         cameraPreview(process, selector, preview)
@@ -75,4 +76,12 @@ class CameraManager(
             else -> Timber.d("### flash Off")
         }
     }
+
+   companion object {
+       private lateinit var process: ProcessCameraProvider
+
+       fun closeCamera() {
+           process.unbindAll()
+       }
+   }
 }
