@@ -8,4 +8,10 @@
     <string name="open_gallery">Open Gallery</string>
     <string name="input_text">Input: %s</string>
     <string name="input_result">Result: %s</string>
+    <string name="popup_clear">Clear Data</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_yes">Yes</string>
+    <string name="unknown_error">Unknown error occurred</string>
+    <string name="clear_all_data"><b>Are you sure you want to clear the data?</b></string>
+    <string name="ml_download">Recognizer was unable to download text</string>
 </resources>

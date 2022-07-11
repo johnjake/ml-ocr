@@ -7,4 +7,6 @@
     <string name="no_flash">Phone does not have flash</string>
     <string name="flash_off">Flash Off</string>
     <string name="flash_on">Flash On</string>
+    <string name="ok">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

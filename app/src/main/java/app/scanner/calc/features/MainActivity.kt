@@ -9,19 +9,22 @@ import app.scanner.calc.bases.BaseActivity
 import app.scanner.calc.bases.BaseState
 import app.scanner.calc.databinding.ActivityMainBinding
 import app.scanner.calc.features.adapter.CalculatedAdapter
-import app.scanner.domain.utils.CAMERA_SYSTEM
-import app.scanner.domain.utils.FILE_SYSTEM
 import app.scanner.domain.extension.getBitmap
 import app.scanner.domain.extension.getDefaultBitmap
 import app.scanner.domain.extension.gone
+import app.scanner.domain.extension.toast
 import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
 import app.scanner.domain.manager.CameraBuilder
 import app.scanner.domain.model.MathData
-import app.scanner.domain.extension.toast
+import app.scanner.domain.utils.CAMERA_SYSTEM
+import app.scanner.domain.utils.FILE_SYSTEM
+import app.scanner.domain.utils.showClearDialog
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>
     (ActivityMainBinding::inflate) {
@@ -46,9 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             }
 
             imgClear.setOnClickListener {
-                listResult?.clear()
-                calcAdapter.submitList(listResult)
-                closeResult()
+                onClearData()
             }
 
             rvExpression.apply {
@@ -79,6 +80,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             viewModel.mainState.collectLatest { state ->
                 when(state) {
                     is BaseState.VariantState -> handleSuccessState(state.data)
+                    else -> { Timber.e(getString(R.string.unknown_error)) }
                 }
             }
         }
@@ -89,6 +91,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
                 when(state) {
                     is BaseState.OnReadSuccess -> handleSuccessReader(state.data)
                     is BaseState.OnReadFailed -> handleFailedReader(state.error)
+                    else -> { Timber.e(getString(R.string.unknown_error)) }
                 }
             }
         }
@@ -139,16 +142,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private fun handleSuccessReader(data: Text) {
         binding.textInImageLayout.visible()
         lifecycleScope.launchWhenStarted {
-            val rawData = viewModel.getProcessResult(data)
-            val mathExp =  viewModel.getMathExpression(rawData)
-            val mathResult = viewModel.getMathResult(mathExp)
-            listResult?.add(MathData(
-                id = savedBitmap?.generationId ?: 0,
-                expression = mathExp,
-                result = mathResult
-            ))
-            calcAdapter.submitList(listResult?.toList())
-            binding.btnOpenSystem.gone()
+            try {
+                val rawData = viewModel.getProcessResult(data)
+                val mathExp =  viewModel.getMathExpression(rawData)
+                val mathResult = viewModel.getMathResult(mathExp)
+                listResult?.add(MathData(
+                    id = savedBitmap?.generationId ?: 0,
+                    expression = mathExp,
+                    result = mathResult
+                ))
+                calcAdapter.submitList(listResult?.toList())
+                binding.btnOpenSystem.gone()
+            } catch (ex: Exception) {
+                toast(getString(R.string.ml_download))
+            }
         }
     }
 
@@ -166,6 +173,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             lifecycleOwner = this
         )
         camera.build()
+    }
+
+    private fun onClearData() {
+        val message = getString(R.string.clear_all_data)
+        val cancel = getString(R.string.cancel)
+        showClearDialog(
+            context = this,
+            title = getString(R.string.popup_clear),
+            message = message,
+            positiveButtonText = getString(R.string.confirm_yes),
+            negativeButtonText = cancel,
+            hasNegativeButton = true,
+            isCancellable = false,
+            positiveButtonClicked = {
+                listResult?.clear()
+                calcAdapter.submitList(listResult)
+                binding.closeResult()
+            }
+        )
     }
 
     override fun onResume() {
