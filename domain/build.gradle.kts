@@ -1,3 +1,6 @@
+import AndroidConfigLib.cameraVersion
+import AndroidConfigLib.timberVersion
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -43,6 +46,10 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.40.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation ("androidx.camera:camera-camera2:$cameraVersion")
+    implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
+    implementation("com.jakewharton.timber:timber:$timberVersion")
+    implementation ("androidx.camera:camera-view:1.0.0-alpha27")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

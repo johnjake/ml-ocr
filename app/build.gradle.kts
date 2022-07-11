@@ -1,3 +1,15 @@
+import AndroidConfigLib.cameraVersion
+import AndroidConfigLib.compatVersion
+import AndroidConfigLib.compilerVersion
+import AndroidConfigLib.constrainVersion
+import AndroidConfigLib.daggerVersion
+import AndroidConfigLib.hiltViewModelVersion
+import AndroidConfigLib.ktxVersion
+import AndroidConfigLib.lifeCycleVersion
+import AndroidConfigLib.lottieVersion
+import AndroidConfigLib.materialVersion
+import AndroidConfigLib.saveStateVersion
+import AndroidConfigLib.timberVersion
 
 plugins {
     id("com.android.application")
@@ -110,17 +122,7 @@ android {
 }
 
 dependencies {
-    val ktxVersion = "1.7.0"
-    val lottieVersion = "3.4.0"
-    val compatVersion = "1.4.2"
-    val materialVersion = "1.6.1"
-    val constrainVersion = "2.1.4"
-    val daggerVersion = "2.38.1"
-    val compilerVersion = "2.38.1"
-    val hiltViewModelVersion = "1.0.0-alpha03"
-    val lifeCycleVersion = "2.6.0-alpha01"
-    val saveStateVersion = "2.6.0-alpha01"
-    val cameraVersion = "1.0.2"
+    implementation(project(mapOf("path" to ":domain")))
 
     implementation("androidx.core:core-ktx:$ktxVersion")
     implementation("androidx.appcompat:appcompat:$compatVersion")
@@ -169,6 +171,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-cast-framework:21.0.1")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
     implementation("org.beanshell:bsh:2.0b4")
+
+    implementation("com.jakewharton.timber:timber:$timberVersion")
 
     /** animation **/
     implementation ("com.airbnb.android:lottie:$lottieVersion")

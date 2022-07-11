@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <path
+        android:fillColor="#45d4d9"
+        android:pathData="M 3 8 H 61 V 44 H 3 V 8 Z" />
+    <path
+        android:fillColor="#2d95b5"
+        android:pathData="M 3 8 H 61 V 11 H 3 V 8 Z" />
+    <path
+        android:fillColor="#f74b50"
+        android:pathData="M 3 40 H 61 V 44 H 3 V 40 Z" />
+    <path
+        android:fillColor="#5c3b51"
+        android:pathData="M 24.51 44 L 21.5 61 L 17.12 61 L 20 44 L 24.51 44 Z" />
+    <path
+        android:fillColor="#5c3b51"
+        android:pathData="M 44.72 44 L 47.6 61 L 43.22 61 L 40.21 44 L 44.72 44 Z" />
+    <path
+        android:fillColor="#5c3b51"
+        android:pathData="M 27 8 L 28.2 3 L 35.8 3 L 37 8 L 27 8 Z" />
+    <path
+        android:fillColor="#4a2e42"
+        android:pathData="M 36.52 6 L 35.8 3 L 28.2 3 L 27.48 6 L 36.52 6 Z" />
+    <path
+        android:fillColor="#2c2a3d"
+        android:pathData="M61,7H37.79l-1-4.23a1,1,0,0,0-1-0.77H28.2a1,1,0,0,0-1,0.77L26.21,7H3A1,1,0,0,0,2,8V44a1,1,0,0,0,1,1H18.81L16.13,60.83a1,1,0,0,0,0.23 0.82 ,1,1,0,0,0,0.76 0.35 H21.5a1,1,0,0,0,1-0.83L25.35,45h14l2.86,16.17a1,1,0,0,0,1,0.83H47.6a1,1,0,0,0,1-1.17L45.9,45H61a1,1,0,0,0,1-1V8A1,1,0,0,0,61,7ZM20.66,60H18.3l2.54-15h2.48Zm23.4,0L41.4,45h2.48l2.53,15ZM29,4h6l0.71,3H28.27ZM27,9H60V39H4V9ZM60,43H4V41H60Z" />
+    <path
+        android:fillColor="#2c2a3d"
+        android:pathData="M44,34h8a1,1,0,0,0,0-2H45V29a3,3,0,0,1,3-3,5,5,0,1,0-5-5,1,1,0,0,0,2,0,3,3,0,1,1,3,3,5,5,0,0,0-5,5v4A1,1,0,0,0,44,34Z" />
+    <path
+        android:fillColor="#2c2a3d"
+        android:pathData="M12,26h7v7a1,1,0,0,0,2,0V17a1,1,0,0,0-2,0v7H13V17a1,1,0,0,0-2,0v8A1,1,0,0,0,12,26Z" />
+    <path
+        android:fillColor="#2c2a3d"
+        android:pathData="M27,26h4v4a1,1,0,0,0,2,0V26h4a1,1,0,0,0,0-2H33V20a1,1,0,0,0-2,0v4H27a1,1,0,0,0,0,2Z" />
+</vector>
