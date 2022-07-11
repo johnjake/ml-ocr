@@ -4,4 +4,7 @@
         <item>fileSystem</item>
         <item>cameraSystem</item>
     </string-array>
+    <string name="no_flash">Phone does not have flash</string>
+    <string name="flash_off">Flash Off</string>
+    <string name="flash_on">Flash On</string>
 </resources>

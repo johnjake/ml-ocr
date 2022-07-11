@@ -13,6 +13,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import app.scanner.domain.R
 import app.scanner.domain.getActivity
 import app.scanner.domain.toast
 import timber.log.Timber
@@ -53,7 +54,7 @@ class CameraBuilder(
                             cameraDetails = cameraInfo
                         }
                         else -> {
-                            getActivity(context)?.toast("Phone does not have flash")
+                            getActivity(context)?.toast(context.getString(R.string.no_flash))
                         }
                     }
                 }
@@ -68,12 +69,12 @@ class CameraBuilder(
                 cameraController.enableTorch(cameraDetails.torchState.value == TorchState.OFF)
                 cameraDetails.torchState.observe(lifecycleOwner) { torchState ->
                     when (torchState) {
-                        TorchState.OFF -> Timber.d("### flash Off")
-                        else -> Timber.d("### flash On")
+                        TorchState.OFF -> getActivity(context)?.toast(context.getString(R.string.flash_off))
+                        else -> getActivity(context)?.toast(context.getString(R.string.flash_on))
                     }
                 }
             }
-            else -> Timber.d("### flash Off")
+            else -> getActivity(context)?.toast(context.getString(R.string.flash_off))
         }
     }
 
