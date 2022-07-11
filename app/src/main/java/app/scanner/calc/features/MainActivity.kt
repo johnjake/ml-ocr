@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private val calcAdapter: CalculatedAdapter by lazy { CalculatedAdapter() }
     private val viewModel: MainViewModel by viewModels()
     private val listResult: MutableList<MathData>? = arrayListOf()
-    private var isFile: Boolean = false
+    private var isFileSystem: Boolean = false
     private var isScanFile: Boolean = false
     private var savedBitmap: Bitmap? = null
 
@@ -40,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         viewModel.verifyFlavors(getString(R.string.variant_type))
 
         binding.apply {
+
             imgClose.setOnClickListener {
                 closeResult()
             }
@@ -56,8 +57,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>
 
             btnOpenSystem.setOnClickListener {
                 when {
-                    isFile -> { if(!isScanFile) readFileSystem() else readFromFile() }
-                    else -> readFromCamera()
+                    isFileSystem -> {
+                        when {
+                            !isScanFile -> readFileSystem()
+                            else -> readFromFile()
+                        }
+                    }
+                    else -> {
+                        binding.btnOpenSystem.text = getString(R.string.scan_input)
+                        readFromCamera()
+                    }
                 }
             }
         }
@@ -89,7 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         textInImageLayout.gone()
         previewImage.gone()
         btnOpenSystem.visible()
-        if(!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
+        if(!isScanFile && isFileSystem) binding.btnOpenSystem.text = getString(R.string.open_gallery)
     }
 
     private fun readFileSystem() {
@@ -146,7 +155,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private fun handleSuccessState(state: String) {
         when(state) {
             CAMERA_SYSTEM -> requestPermission = openCamera()
-            FILE_SYSTEM -> isFile = true
+            FILE_SYSTEM -> isFileSystem = true
         }
     }
 
