@@ -37,7 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         lifecycle.addObserver(openGallery)
         viewModel.verifyFlavors(getString(R.string.variant_type))
 
-
         binding.apply {
             imgClose.setOnClickListener {
                 closeResult()
@@ -54,26 +53,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             }
 
             btnOpenSystem.setOnClickListener {
-                if(isFile) openGallery.selectImage()
-                else {
-                    val recognizer = TextRecognition.getClient()
-                    previewImage.visible()
-                    savedBitmap = binding.viewFinder.bitmap
-                    previewImage.setImageBitmap(binding.viewFinder.bitmap!!)
-                    viewModel.recognizeExpression(
-                        recognizer = recognizer,
-                        bitmap = savedBitmap ?: binding.root.context.getBitmap()
-                    )
+                when {
+                    isFile -> readFileSystem()
+                    else -> readCameraSystem()
                 }
             }
         }
    }
-
-    private fun ActivityMainBinding.closeResult() {
-        textInImageLayout.gone()
-        previewImage.gone()
-        btnOpenSystem.visible()
-    }
 
     override fun setUpObserver() {
         super.setUpObserver()
@@ -94,6 +80,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>
                     is BaseState.OnReadFailed -> handleFailedReader(state.error)
                 }
             }
+        }
+    }
+
+    private fun ActivityMainBinding.closeResult() {
+        textInImageLayout.gone()
+        previewImage.gone()
+        btnOpenSystem.visible()
+    }
+
+    private fun readFileSystem() {
+        openGallery.selectImage()
+    }
+
+    private fun readCameraSystem() {
+        val recognizer = TextRecognition.getClient()
+        binding.apply {
+            savedBitmap = viewFinder.bitmap
+            previewImage.visible()
+            previewImage.setImageBitmap(viewFinder.bitmap!!)
+            viewModel.recognizeExpression(
+                recognizer = recognizer,
+                bitmap = savedBitmap ?: root.context.getBitmap()
+            )
         }
     }
 

@@ -12,11 +12,11 @@ class FileGallery(
     private val registry : ActivityResultRegistry
 ) : DefaultLifecycleObserver {
     lateinit var getContent : ActivityResultLauncher<String>
-    private lateinit var uri: Uri
+    private lateinit var imageUri: Uri
     var isRead: Boolean = false
     override fun onCreate(owner: LifecycleOwner) {
-        getContent = registry.register("key", owner, ActivityResultContracts.GetContent()) {
-            uri = it
+        getContent = registry.register("key", owner, ActivityResultContracts.GetContent()) { uri ->
+            imageUri = uri
             isRead = true
         }
     }
@@ -26,7 +26,10 @@ class FileGallery(
 
     fun getUri(): Uri? {
         return when {
-            uri.path?.isNotEmpty() == true -> uri
+            imageUri.path?.isNotEmpty() == true -> {
+                isRead = false
+                imageUri
+            }
             else -> null
         }
     }
