@@ -12,6 +12,7 @@
         android:layout_width="74dp"
         android:layout_height="0dp"
         android:clickable="true"
+        android:contentDescription="@string/app_name"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
         android:tag="back"
