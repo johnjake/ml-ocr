@@ -40,7 +40,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     override fun setUpView() {
         super.setUpView()
         lifecycle.addObserver(openGallery)
-        viewModel.verifyFlavors(getString(R.string.variant_type))
+
+        verifyVariant(getString(R.string.variant_type))
 
         binding.apply {
 
@@ -75,15 +76,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>
 
     override fun setUpObserver() {
         super.setUpObserver()
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.mainState.collectLatest { state ->
-                when(state) {
-                    is BaseState.VariantState -> handleSuccessState(state.data)
-                    else -> { Timber.e(getString(R.string.unknown_error)) }
-                }
-            }
-        }
 
         /** collect recognized text **/
         this.lifecycleScope.launchWhenStarted {
@@ -159,7 +151,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         }
     }
 
-    private fun handleSuccessState(state: String) {
+    private fun verifyVariant(state: String) {
         when(state) {
             CAMERA_SYSTEM -> requestPermission = openCamera()
             FILE_SYSTEM -> isFileSystem = true
