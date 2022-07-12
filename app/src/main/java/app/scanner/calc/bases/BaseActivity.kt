@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
+import app.scanner.calc.R
 import app.scanner.calc.hilt.HiltActivityEntry
 import app.scanner.domain.utils.REQUEST_CODE_PERMISSIONS
 import app.scanner.domain.utils.REQUIRED_PERMISSIONS
@@ -60,7 +61,7 @@ abstract class BaseActivity<T : ViewBinding>(
             if (allPermissionsGranted()) {
                 cameraUnit
             } else {
-                toast("Camera Permission Denied")
+                toast(getString(R.string.camera_denied))
             }
         }
     }
