@@ -1,1 +1,1 @@
-D:\ml-ocr\buildSrc\build\classes\kotlin\main\AndroidConfigLib.class
+D:\ml-ocr\buildSrc\build\classes\kotlin\main\AndroidConfigLib.class;D:\ml-ocr\buildSrc\build\classes\kotlin\main\ConfigFlavor.class;D:\ml-ocr\buildSrc\build\classes\kotlin\main\FlavorDimension.class;D:\ml-ocr\buildSrc\build\classes\kotlin\main\FlavorVersion.class;D:\ml-ocr\buildSrc\build\classes\kotlin\main\SourceSet.class

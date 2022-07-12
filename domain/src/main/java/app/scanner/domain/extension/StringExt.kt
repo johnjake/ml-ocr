@@ -15,6 +15,8 @@ fun String.spannableCustom(hexColor: String, isBold: Boolean): Spanned {
     }
 }
 
+fun Number.verifyContainDecimal() = floor(this.toDouble()) != this
+
 private fun verifyDecimalPoint(n: Number)
    = floor(n.toDouble()) != n
 

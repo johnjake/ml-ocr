@@ -55,7 +55,7 @@ dependencies {
 
     implementation ("androidx.camera:camera-camera2:$cameraVersion")
     implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
-    implementation("com.jakewharton.timber:timber:$timberVersion")
+    implementation("com.jakewharton.timber:timber:5.0.1")
     implementation ("androidx.camera:camera-view:1.0.0-alpha27")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

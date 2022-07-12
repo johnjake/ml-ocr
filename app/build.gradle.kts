@@ -1,15 +1,41 @@
+import AndroidConfigLib.archCoreVersion
 import AndroidConfigLib.cameraVersion
 import AndroidConfigLib.compatVersion
 import AndroidConfigLib.compilerVersion
 import AndroidConfigLib.constrainVersion
+import AndroidConfigLib.coroutineVersion
 import AndroidConfigLib.daggerVersion
+import AndroidConfigLib.expressoCoreVersion
 import AndroidConfigLib.hiltViewModelVersion
+import AndroidConfigLib.juniVersion
 import AndroidConfigLib.ktxVersion
 import AndroidConfigLib.lifeCycleVersion
 import AndroidConfigLib.lottieVersion
 import AndroidConfigLib.materialVersion
+import AndroidConfigLib.mokitoCoreVersion
 import AndroidConfigLib.saveStateVersion
 import AndroidConfigLib.timberVersion
+import AndroidConfigLib.mokitoVersion
+import AndroidConfigLib.junitExtVersion
+import ConfigFlavor.redFlavor
+import ConfigFlavor.greenFlavor
+import ConfigFlavor.cameraSystem
+import ConfigFlavor.fileSystem
+import FlavorDimension.colorDimension
+import SourceSet.cameraDirJava
+import SourceSet.cameraDirRes
+import SourceSet.fileDirJava
+import SourceSet.fileDirRes
+import SourceSet.redDirJava
+import SourceSet.redDirRes
+import SourceSet.greenDirJava
+import SourceSet.greenDirRes
+import FlavorDimension.typeDimension
+import FlavorVersion.greenCameraSystem
+import FlavorVersion.greenFileSystem
+import FlavorVersion.redCameraSystem
+import FlavorVersion.redFileSystem
+
 
 plugins {
     id("com.android.application")
@@ -33,27 +59,31 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions("colorDimen", "typeDimen")
+    flavorDimensions.addAll(listOf(colorDimension, typeDimension))
     productFlavors {
-        create("builtincamera") {
-            dimension = "typeDimen"
+        create(cameraSystem) {
+            dimension = typeDimension
             applicationIdSuffix =".camera"
+            versionName = redCameraSystem
             versionCode = 3
         }
-        create("filesystem") {
-            dimension = "typeDimen"
+        create(fileSystem) {
+            dimension = typeDimension
             applicationIdSuffix = ".file"
+            versionName = greenFileSystem
             versionCode = 4
         }
 
-        create("red") {
-            dimension = "colorDimen"
+        create(redFlavor) {
+            dimension = colorDimension
             applicationIdSuffix = ".red"
+            versionName = redFileSystem
             versionCode = 1
         }
-        create("green") {
-            dimension = "colorDimen"
+        create(greenFlavor) {
+            dimension = colorDimension
             applicationIdSuffix = ".green"
+            versionName = greenCameraSystem
             versionCode = 2
         }
     }
@@ -80,44 +110,44 @@ android {
         dataBinding = true
         viewBinding = true
     }
-    val red = "red"
-    val green = "green"
-    val camera = "builtincamera"
-    val file = "filesystem"
+
     sourceSets {
-        this.getByName("$red"){
-            this.java.srcDir("src/$red/java")
+        this.getByName(redFlavor){
+            this.java.srcDir(redDirJava)
         }
-        this.getByName("$red"){
-            this.res.srcDir("src/$red/res")
-        }
-
-        this.getByName("$green"){
-            this.java.srcDir("src/$green/java")
-        }
-        this.getByName("$green"){
-            this.res.srcDir("src/$green/res")
+        this.getByName(redFlavor){
+            this.res.srcDir(redDirRes)
         }
 
-        this.getByName("$camera"){
-            this.java.srcDir("src/$camera/java")
+        this.getByName(greenFlavor){
+            this.java.srcDir(greenDirJava)
         }
-        this.getByName("$camera"){
-            this.res.srcDir("src/$camera/res")
+        this.getByName(greenFlavor){
+            this.res.srcDir(greenDirRes)
         }
 
-        this.getByName("$file"){
-            this.java.srcDir("src/$file/java")
+        this.getByName(cameraSystem){
+            this.java.srcDir(cameraDirJava)
         }
-        this.getByName("$file"){
-            this.res.srcDir("src/$file/res")
+        this.getByName(cameraSystem){
+            this.res.srcDir(cameraDirRes)
+        }
+
+        this.getByName(fileSystem){
+            this.java.srcDir(fileDirJava)
+        }
+        this.getByName(fileSystem){
+            this.res.srcDir(fileDirRes)
         }
     }
 
-    this.buildOutputs.all {
-        val variants = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-        val variantName: String = variants.name
-        variants.outputFileName = "${android.defaultConfig.applicationId}.apk"
+    applicationVariants.all {
+        val variant = this
+        variant.outputs
+            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+            .forEach { output ->
+                output.outputFileName = FlavorVersion.appNameApk(variant.versionName)
+            }
     }
 }
 
@@ -163,8 +193,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.6.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.0-alpha01")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01")
 
@@ -177,9 +208,17 @@ dependencies {
     /** animation **/
     implementation ("com.airbnb.android:lottie:$lottieVersion")
 
+    /** mock **/
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("io.mockk:mockk:1.10.0")
+
     /** unit test **/
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation("junit:junit:$juniVersion")
+
+    testImplementation("androidx.arch.core:core-testing:$archCoreVersion")
+    testImplementation ("org.mockito:mockito-inline:3.11.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.ext:junit:$junitExtVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$expressoCoreVersion")
 }
