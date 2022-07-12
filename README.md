@@ -28,7 +28,14 @@ Used in Development:
    
    User Interface:
    
+   File System
+   
   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/file_system.png)
+  
+  Camera System
+  
+  ![alt text](https://github.com/johnjake/ml-ocr/blob/master/camera_system.png)
+  
 
 
 
