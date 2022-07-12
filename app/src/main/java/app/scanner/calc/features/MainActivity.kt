@@ -25,8 +25,6 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>
@@ -169,7 +167,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     }
 
     private fun handleFailedReader(error: String?) {
-        toast("Error: $error")
+        Timber.e(error)
+        toast(getString(R.string.no_text_image))
     }
 
     /**

@@ -16,13 +16,23 @@ object AndroidConfigLib {
     const val saveStateVersion = "2.6.0-alpha01"
     const val cameraVersion = "1.0.2"
     const val timberVersion = "4.7.1"
-    const val mokitoCoreVersion = "4.6.1"
+    const val mokitoCoreVersion = "3.12.4"
     const val mokitoVersion = "1.10.0"
     const val juniVersion = "4.13.2"
     const val archCoreVersion = "2.1.0"
     const val junitExtVersion = "1.1.3"
     const val expressoCoreVersion = "3.4.0"
     const val coroutineVersion = "1.6.1"
+    const val cameraViewVersion = "1.0.0-alpha27"
+    const val textOcrVersion = "16.0.0"
+    const val mokitoLineVersion = "3.11.2"
+    const val lifecycleVersion = "2.6.0-alpha01"
+    const val vMlifecyclerVersion = "2.5.0"
+    const val serviceVersion = "21.0.1"
+    const val beanVersion = "2.0b4"
+    const val ktxActVersion = "1.5.0"
+    const val liveDataVersion = "2.5.0"
+
 }
 
 object ConfigFlavor {
