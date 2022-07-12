@@ -16,20 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val check: CheckVariant,
     private val ocrReader: ReaderAction
 ) : BaseViewModel() {
-    private val shareFlow: MutableSharedFlow<BaseState> = MutableSharedFlow(replay = 1)
     private val ocrFlow: MutableSharedFlow<BaseState> = MutableSharedFlow(replay = 1)
-    val mainState: SharedFlow<BaseState> = shareFlow
     val ocrState: SharedFlow<BaseState> = ocrFlow
-
-    fun verifyFlavors(variant: String) {
-        viewModelScope.launch {
-            val flavor = check.getBuildVariant(variant)
-            shareFlow.emit(BaseState.VariantState(flavor))
-        }
-    }
 
     fun recognizeExpression(recognizer: TextRecognizer, bitmap: Bitmap) {
         viewModelScope.launch {
