@@ -26,7 +26,7 @@ Used in Development:
    
    User Interface:
    
-  ![alt text](https://github.com/johnjake/car-trackers/blob/screen-shot/car_track_screen.png)
+  ![alt text](https://github.com/johnjake/ml-ocr/blob/master/file_system.png)
 
 
 
