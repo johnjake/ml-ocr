@@ -12,6 +12,7 @@ import app.scanner.calc.features.adapter.CalculatedAdapter
 import app.scanner.domain.extension.getBitmap
 import app.scanner.domain.extension.getDefaultBitmap
 import app.scanner.domain.extension.gone
+import app.scanner.domain.extension.roundOff
 import app.scanner.domain.extension.toast
 import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
@@ -24,6 +25,8 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>
@@ -134,19 +137,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     private fun handleSuccessReader(data: Text) {
         binding.textInImageLayout.visible()
         lifecycleScope.launchWhenStarted {
-            try {
+          try {
                 val rawData = viewModel.getProcessResult(data)
                 val mathExp =  viewModel.getMathExpression(rawData)
                 val mathResult = viewModel.getMathResult(mathExp)
                 listResult?.add(MathData(
                     id = savedBitmap?.generationId ?: 0,
                     expression = mathExp,
-                    result = mathResult
+                    result = mathResult.roundOff()
                 ))
                 calcAdapter.submitList(listResult?.toList())
                 binding.btnOpenSystem.gone()
             } catch (ex: Exception) {
-                toast(getString(R.string.ml_download))
+                toast(getString(R.string.unknown_error))
             }
         }
     }

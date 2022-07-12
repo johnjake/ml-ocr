@@ -35,7 +35,7 @@ class ReaderRepository : ReaderAction {
                 interpreter.eval("result =$mathExpression")
                 interpreter["result"].toString()
             } catch (ex: Exception) {
-                UNKNOWN_RESULT
+                "0"
             }
         }
 
