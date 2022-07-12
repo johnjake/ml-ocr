@@ -72,26 +72,22 @@ android {
             dimension = typeDimension
             applicationIdSuffix =".camera"
             versionName = redCameraSystem
-            versionCode = 3
         }
         create(fileSystem) {
             dimension = typeDimension
             applicationIdSuffix = ".file"
             versionName = greenFileSystem
-            versionCode = 4
         }
 
         create(redFlavor) {
             dimension = colorDimension
             applicationIdSuffix = ".red"
             versionName = redFileSystem
-            versionCode = 1
         }
         create(greenFlavor) {
             dimension = colorDimension
             applicationIdSuffix = ".green"
-            versionName = greenCameraSystem
-            versionCode = 2
+            versionName = greenFileSystem
         }
     }
 
