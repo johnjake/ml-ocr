@@ -167,7 +167,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>
     }
 
     private fun handleFailedReader(error: String?) {
-        toast("Error: $error")
+        Timber.e(error)
+        toast(getString(R.string.no_text_image))
     }
 
     /**
