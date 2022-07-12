@@ -25,8 +25,6 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>

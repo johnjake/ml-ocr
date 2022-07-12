@@ -23,6 +23,8 @@ import AndroidConfigLib.mokitoVersion
 import AndroidConfigLib.vMlifecyclerVersion
 import AndroidConfigLib.serviceVersion
 import AndroidConfigLib.beanVersion
+import AndroidConfigLib.ktxActVersion
+import AndroidConfigLib.liveDataVersion
 import ConfigFlavor.redFlavor
 import ConfigFlavor.greenFlavor
 import ConfigFlavor.cameraSystem
@@ -171,12 +173,13 @@ dependencies {
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$saveStateVersion")
-
+    implementation ("androidx.activity:activity-ktx:$ktxActVersion")
     /** camera class **/
 
     implementation ("androidx.camera:camera-camera2:$cameraVersion")
     implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
     implementation ("androidx.camera:camera-view:$cameraViewVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion")
 
     /** google machine learning text recognition **/
     implementation ("com.google.android.gms:play-services-mlkit-text-recognition:$textOcrVersion")

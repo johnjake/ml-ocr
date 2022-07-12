@@ -30,6 +30,8 @@ object AndroidConfigLib {
     const val vMlifecyclerVersion = "2.5.0"
     const val serviceVersion = "21.0.1"
     const val beanVersion = "2.0b4"
+    const val ktxActVersion = "1.5.0"
+    const val liveDataVersion = "2.5.0"
 
 }
 

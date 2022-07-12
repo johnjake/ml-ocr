@@ -9,11 +9,11 @@ fun Activity.toast(message: String, duration: Int? = null) {
     runOnUiThread { Toast.makeText(this, message, duration ?: Toast.LENGTH_SHORT).show() }
 }
 
-fun getActivity(context: Context): Activity? {
+fun getActivity(context: Context?): Activity? {
     return when (context) {
         null -> null
         is ContextWrapper -> if (context !is Activity) {
-                getActivity((context as ContextWrapper).baseContext)
+                getActivity(context.baseContext)
             } else {
                 context
             }
