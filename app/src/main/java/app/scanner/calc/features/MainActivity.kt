@@ -32,6 +32,32 @@ import kotlin.math.roundToLong
 class MainActivity : BaseActivity<ActivityMainBinding>
     (ActivityMainBinding::inflate) {
 
+    /**
+     * FileGallery - is a class for opening gallery it extend using DefaultLifecycleObserver with
+     * @param ActivityResultRegistry
+     *
+     * CalculatedAdapter - the purpose of this adapter is for the result value tabulated into list.
+     *
+     * MainViewModel - contains methods or function for opening ML text recognition and function such as get Math expression
+     * from a given string then calculate it.
+     * @param ReaderAction - is an interface and function implemented in ReaderRepository class.
+     *
+     * @param listResult - this is actually temp mutable list that holds the calculated value and math expression.
+     *
+     * @param isFileSystem - instead of writing multiple MainActivity for each product flavor, what I did was just create
+     * a string in resources to and add flag like `cameraSystem`, `fileSystem` isFileSystem means
+     * the current flavor is file system or browse to gallery only and the camera was set disabled
+     * true - for isFileSystem is currently in fileSystem flavor.
+     * false - is set if not in fileSystem Flavor.
+     *
+     * @param isScanFile - since the UI design was first the user browse the image then run Scan Input
+     * to run ML Text Recognition.
+     * true - if imageView contain image to be scan or text recognized.
+     * false - if the state is browsing to gallery.
+     *
+     * @param saveBitmap - this is the container of bitmap after scanning using camera or browse image from gallery.
+     * **/
+
     private val openGallery: FileGallery by lazy { FileGallery(this.activityResultRegistry) }
     private val calcAdapter: CalculatedAdapter by lazy { CalculatedAdapter() }
     private val viewModel: MainViewModel by viewModels()
@@ -99,11 +125,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         if(!isScanFile && isFileSystem) binding.btnOpenSystem.text = getString(R.string.open_gallery)
     }
 
+    /**
+     * if current state or flavor is FileSystem this readFileSystem is called to open the gallery
+     * **/
     private fun readFileSystem() {
         openGallery.selectImage()
         isScanFile = false
     }
 
+    /**
+     * ** recognizeTextImage - is called when ever you need to scan or text recognized the image and its
+     * used in fileSystem.  Or the current flavor or state is FileSystem
+     * */
     private fun recognizeTextImage() {
         isScanFile = false
         val recognizer = TextRecognition.getClient()
@@ -116,6 +149,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             )
         }
     }
+
+    /**
+     * ** readFromCamera - is called when ever you need to scan or text recognized the image and its
+     * used in cameraSystem. Or the current flavor or state is Camera
+     * */
 
     private fun readFromCamera() {
         val recognizer = TextRecognition.getClient()
@@ -134,6 +172,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         toast("Error: $error")
     }
 
+    /**
+     * ** handleSuccessReader - after successfully scan the result text which is contains alphanumeric
+     * the inside this function process to extract the math expression after extracting math expression
+     * calculate or solve it then pass the value to listResult which is mutableList then submit the list to
+     * adapter
+     * */
     private fun handleSuccessReader(data: Text) {
         binding.textInImageLayout.visible()
         lifecycleScope.launchWhenStarted {
@@ -154,12 +198,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         }
     }
 
+    /**
+     * this function is called first the first time you open the app either the flavor is fileSystem
+     * or Camera System it will prompt the user or run request permission.
+     * @param state - (fileSystem, CameraSystem)
+     *
+     * @param requestPermission a property backfield with param as lambda expression as request permission camera
+     * reside in BaseActivity Class.
+     *
+     * **/
+
     private fun verifyVariant(state: String) {
         when(state) {
             CAMERA_SYSTEM -> requestPermission = openCamera()
             FILE_SYSTEM -> isFileSystem = true
         }
     }
+
+    /**
+     * openCamera - this will initialized the camera and open
+     * **/
 
     private fun openCamera() {
         val camera = CameraBuilder(
@@ -169,6 +227,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         )
         camera.build()
     }
+
+    /**
+     * onClearData - is an alert dialog to clear the data.
+     * **/
 
     private fun onClearData() {
         val message = getString(R.string.clear_all_data)
@@ -189,6 +251,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>
         )
     }
 
+    /***
+     * onResume this is where the image URI extracted from FileGallery and assigned directly to imageView
+     * **/
     override fun onResume() {
         super.onResume()
         if(openGallery.isRead) {
@@ -201,6 +266,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
             binding.btnOpenSystem.text = getString(R.string.scan_input)
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
