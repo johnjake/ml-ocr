@@ -28,7 +28,7 @@ class ReaderRepository : ReaderAction {
             }
         }
 
-    override suspend fun mathConverter(mathExpression: String): String =
+    override suspend fun solveMathEquation(mathExpression: String): String =
         withContext(Dispatchers.IO) {
             try {
                 val interpreter = Interpreter()

@@ -22,6 +22,7 @@ object AndroidConfigLib {
     const val archCoreVersion = "2.1.0"
     const val junitExtVersion = "1.1.3"
     const val expressoCoreVersion = "3.4.0"
+    const val coroutineVersion = "1.6.1"
 }
 
 object ConfigFlavor {

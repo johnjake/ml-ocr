@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import androidx.lifecycle.viewModelScope
 import app.scanner.calc.bases.BaseState
 import app.scanner.calc.bases.BaseViewModel
-import app.scanner.domain.repository.CheckVariant
 import app.scanner.domain.repository.ReaderAction
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognizer
@@ -33,6 +32,6 @@ class MainViewModel @Inject constructor(
     }
 
     suspend fun getMathExpression(expression: String): String = ocrReader.getExpression(expression)
-    suspend fun getMathResult(mathExpression: String): String = ocrReader.mathConverter(mathExpression)
+    suspend fun getMathResult(mathExpression: String): String = ocrReader.solveMathEquation(mathExpression)
     suspend fun getProcessResult(recognizeText: Text): String = ocrReader.processResult(recognizeText)
 }

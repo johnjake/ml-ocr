@@ -3,6 +3,7 @@ import AndroidConfigLib.cameraVersion
 import AndroidConfigLib.compatVersion
 import AndroidConfigLib.compilerVersion
 import AndroidConfigLib.constrainVersion
+import AndroidConfigLib.coroutineVersion
 import AndroidConfigLib.daggerVersion
 import AndroidConfigLib.expressoCoreVersion
 import AndroidConfigLib.hiltViewModelVersion
@@ -192,8 +193,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.6.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.0-alpha01")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01")
 
@@ -207,12 +209,16 @@ dependencies {
     implementation ("com.airbnb.android:lottie:$lottieVersion")
 
     /** mock **/
-    testImplementation ("org.mockito:mockito-core:$mokitoCoreVersion")
-    testImplementation ("io.mockk:mockk:$mokitoVersion")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("io.mockk:mockk:1.10.0")
 
     /** unit test **/
     testImplementation("junit:junit:$juniVersion")
+
     testImplementation("androidx.arch.core:core-testing:$archCoreVersion")
+    testImplementation ("org.mockito:mockito-inline:3.11.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.ext:junit:$junitExtVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$expressoCoreVersion")
 }
