@@ -13,6 +13,8 @@ Used in Development:
 
     Language: Kotlin
     Architechture Pattern: MVVM
+    Type: Modular
+    Unit Test: Yes
     
     Features Covered:
     
