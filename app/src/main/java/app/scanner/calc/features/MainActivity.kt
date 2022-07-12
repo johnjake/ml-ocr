@@ -140,7 +140,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>
           try {
                 val rawData = viewModel.getProcessResult(data)
                 val mathExp =  viewModel.getMathExpression(rawData)
-                val mathResult = viewModel.getMathResult(mathExp)
+                val mathResult = viewModel.solveMathEquation(mathExp)
                 listResult?.add(MathData(
                     id = savedBitmap?.generationId ?: 0,
                     expression = mathExp,

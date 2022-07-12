@@ -32,6 +32,6 @@ class MainViewModel @Inject constructor(
     }
 
     suspend fun getMathExpression(expression: String): String = ocrReader.getExpression(expression)
-    suspend fun getMathResult(mathExpression: String): String = ocrReader.solveMathEquation(mathExpression)
+    suspend fun solveMathEquation(mathExpression: String): String = ocrReader.solveMathEquation(mathExpression)
     suspend fun getProcessResult(recognizeText: Text): String = ocrReader.processResult(recognizeText)
 }
