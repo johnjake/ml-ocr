@@ -10,13 +10,19 @@ import AndroidConfigLib.hiltViewModelVersion
 import AndroidConfigLib.juniVersion
 import AndroidConfigLib.ktxVersion
 import AndroidConfigLib.lifeCycleVersion
-import AndroidConfigLib.lottieVersion
 import AndroidConfigLib.materialVersion
-import AndroidConfigLib.mokitoCoreVersion
 import AndroidConfigLib.saveStateVersion
 import AndroidConfigLib.timberVersion
-import AndroidConfigLib.mokitoVersion
 import AndroidConfigLib.junitExtVersion
+import AndroidConfigLib.cameraViewVersion
+import AndroidConfigLib.mokitoCoreVersion
+import AndroidConfigLib.textOcrVersion
+import AndroidConfigLib.mokitoLineVersion
+import AndroidConfigLib.lifecycleVersion
+import AndroidConfigLib.mokitoVersion
+import AndroidConfigLib.vMlifecyclerVersion
+import AndroidConfigLib.serviceVersion
+import AndroidConfigLib.beanVersion
 import ConfigFlavor.redFlavor
 import ConfigFlavor.greenFlavor
 import ConfigFlavor.cameraSystem
@@ -43,7 +49,6 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -168,57 +173,41 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$saveStateVersion")
 
     /** camera class **/
-    implementation ("androidx.exifinterface:exifinterface:1.3.3")
 
     implementation ("androidx.camera:camera-camera2:$cameraVersion")
     implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
-    implementation ("androidx.camera:camera-view:1.0.0-alpha27")
+    implementation ("androidx.camera:camera-view:$cameraViewVersion")
 
     /** google machine learning text recognition **/
-    implementation ("com.google.android.gms:play-services-mlkit-text-recognition:16.0.0")
-
-    implementation("androidx.fragment:fragment-ktx:1.5.0")
-    implementation("com.airbnb.android:lottie:4.2.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
-
-    /** navigation **/
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.0")
+    implementation ("com.google.android.gms:play-services-mlkit-text-recognition:$textOcrVersion")
 
     /** lifecycle **/
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
 
     /** lifecycle optional **/
-    implementation("androidx.lifecycle:lifecycle-service:2.6.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-process:2.6.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-service:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-process:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01")
-
-    implementation("com.google.android.gms:play-services-cast-framework:21.0.1")
-    implementation ("com.github.dhaval2404:imagepicker:2.1")
-    implementation("org.beanshell:bsh:2.0b4")
-
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$vMlifecyclerVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("com.google.android.gms:play-services-cast-framework:$serviceVersion")
+    implementation("org.beanshell:bsh:$beanVersion")
     implementation("com.jakewharton.timber:timber:$timberVersion")
-
-    /** animation **/
-    implementation ("com.airbnb.android:lottie:$lottieVersion")
 
     /** mock **/
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion")
-    testImplementation ("org.mockito:mockito-core:3.12.4")
-    testImplementation ("io.mockk:mockk:1.10.0")
+    testImplementation ("org.mockito:mockito-core:$mokitoCoreVersion")
+    testImplementation ("io.mockk:mockk:$mokitoVersion")
 
     /** unit test **/
     testImplementation("junit:junit:$juniVersion")
 
     testImplementation("androidx.arch.core:core-testing:$archCoreVersion")
-    testImplementation ("org.mockito:mockito-inline:3.11.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.ext:junit:$junitExtVersion")
+    testImplementation ("org.mockito:mockito-inline:$mokitoLineVersion")
+    androidTestImplementation ("androidx.test.ext:junit:$junitExtVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$expressoCoreVersion")
 }
