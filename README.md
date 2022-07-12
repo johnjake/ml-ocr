@@ -1,4 +1,4 @@
-# Reader Calculator   ![alt text](https://github.com/johnjake/car-trackers/blob/master/ic_car_top.png)
+# Reader Calculator   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/calc.png)
 
 The app should allow the user to capture arithmetic expressions (i.e. 1+2) either directly from the built-in camera or from an image file picked by the user from the filesystem. Once the input is provided the app detect the expression in the picture and compute its result.
 
