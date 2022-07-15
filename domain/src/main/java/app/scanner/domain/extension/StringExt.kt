@@ -2,10 +2,7 @@ package app.scanner.domain.extension
 
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
-import timber.log.Timber
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.util.*
+import java.util.Locale
 import kotlin.math.floor
 
 fun String.spannableCustom(hexColor: String, isBold: Boolean): Spanned {

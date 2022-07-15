@@ -42,7 +42,7 @@ class ViewModelTest {
     private fun solverMath(mathExpression: String): String {
         val interpreter = Interpreter()
         interpreter.eval("result =$mathExpression")
-       return interpreter["result"].toString()
+        return interpreter["result"].toString()
     }
 
     @Test
@@ -80,7 +80,7 @@ class ViewModelTest {
         runBlocking {
             `when`(repository.getExpression(expression)).thenReturn(mathExpression)
             `when`(repository.solveMathEquation(mathExpression)).thenReturn(correctAnswer)
-             val result = viewModel.solveMathEquation(mathExpression)
+            val result = viewModel.solveMathEquation(mathExpression)
             println("Computed result: $result")
             println("Equation result: ${baseData.result}")
             Assert.assertEquals(result, correctAnswer)
