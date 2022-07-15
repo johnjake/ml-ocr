@@ -43,6 +43,7 @@ import FlavorVersion.greenCameraSystem
 import FlavorVersion.greenFileSystem
 import FlavorVersion.redCameraSystem
 import FlavorVersion.redFileSystem
+import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
 
 
 plugins {
@@ -51,6 +52,7 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("com.diffplug.spotless")
 }
 
 android {
@@ -153,6 +155,18 @@ android {
             }
     }
 }
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint("0.42.1")
+    }
+    kotlinGradle {
+        target("*.gradle.kts", "additionalScripts/*.gradle.kts")
+        ktlint("0.42.1")
+    }
+}
+
 
 dependencies {
     implementation(project(mapOf("path" to ":domain")))
