@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import app.scanner.domain.utils.OPEN_ALL_FILES
+import timber.log.Timber
 
 class FileGallery(
     private val registry : ActivityResultRegistry
@@ -22,6 +23,7 @@ class FileGallery(
     }
     fun selectImage() {
         getContent.launch(OPEN_ALL_FILES)
+        Timber.e("############################################ ")
     }
 
     fun getUri(): Uri? {
