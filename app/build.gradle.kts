@@ -54,6 +54,8 @@ plugins {
     id("com.diffplug.spotless")
 }
 
+apply(from = "../ktlint.gradle")
+
 android {
     compileSdk = 32
     buildToolsVersion = "33.0.0"
