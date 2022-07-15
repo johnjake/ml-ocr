@@ -26,7 +26,9 @@ import com.google.mlkit.vision.text.TextRecognizer
 
 class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
-    private val openGallery: FileGallery by lazy { FileGallery(this.activityResultRegistry) }
+    private val openGallery: FileGallery by lazy {
+        FileGallery(this.activityResultRegistry)
+    }
     private val calcAdapter: CalculatedAdapter by lazy { CalculatedAdapter() }
     private val listResult: MutableList<MathData>? = arrayListOf()
     private var isScanFile: Boolean = false

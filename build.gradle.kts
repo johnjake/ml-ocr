@@ -24,8 +24,10 @@ allprojects {
     }
 }
 
-val installGitHooks by tasks.register("installGitHooks",
-    Copy::class.java) {
+val installGitHooks by tasks.register(
+    "installGitHooks",
+    Copy::class.java
+) {
     from(File(rootProject.rootDir, "pre-commit"))
     into(File(rootProject.rootDir, ".git/hooks"))
     fileMode = 493 // 493 decimal == 755 octal; unix file permissions
