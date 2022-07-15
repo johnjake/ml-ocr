@@ -56,7 +56,6 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
             imgClear.setOnClickListener {
                 onClearData()
             }
-
         }
     }
 
@@ -64,7 +63,7 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
         textInImageLayout.gone()
         previewImage.gone()
         btnOpenSystem.visible()
-        if(!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
+        if (!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
     }
 
     private fun readFileSystem() {
@@ -88,21 +87,23 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
             val textResult = processResult(text)
             val mathExp = getExpression(textResult)
             val result = solveMathEquation(mathExp)
-            listResult?.add(MathData(
-                id = savedBitmap?.generationId ?: 0,
-                expression = mathExp,
-                result = result.roundOff()
-            ))
+            listResult?.add(
+                MathData(
+                    id = savedBitmap?.generationId ?: 0,
+                    expression = mathExp,
+                    result = result.roundOff()
+                )
+            )
             calcAdapter.submitList(listResult?.toList())
             binding.btnOpenSystem.gone()
-            }.addOnFailureListener { e ->
-                e.printStackTrace()
-            }
+        }.addOnFailureListener { e ->
+            e.printStackTrace()
+        }
     }
 
     private fun getExpression(expression: String): String {
         val mathExpression = expression.replace(PATTERN_MATH.toRegex(), EMPTY)
-       return when {
+        return when {
             mathExpression.isNotEmpty() -> mathExpression
             else -> INVALID_MATH_EXPRESSION
         }
@@ -126,7 +127,7 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
             }
             resultText += "\n"
         }
-       return resultText
+        return resultText
     }
 
     private fun onClearData() {
@@ -150,8 +151,8 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
 
     override fun onResume() {
         super.onResume()
-        if(openGallery.isRead) {
-            require(openGallery.getUri()!= null) { toast(getString(R.string.invalid_files)) }
+        if (openGallery.isRead) {
+            require(openGallery.getUri() != null) { toast(getString(R.string.invalid_files)) }
             isScanFile = true
             binding.previewImage.apply {
                 visibility = View.VISIBLE

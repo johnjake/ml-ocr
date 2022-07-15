@@ -1,5 +1,7 @@
 import AndroidConfigLib.archCoreVersion
+import AndroidConfigLib.beanVersion
 import AndroidConfigLib.cameraVersion
+import AndroidConfigLib.cameraViewVersion
 import AndroidConfigLib.compatVersion
 import AndroidConfigLib.compilerVersion
 import AndroidConfigLib.constrainVersion
@@ -8,41 +10,38 @@ import AndroidConfigLib.daggerVersion
 import AndroidConfigLib.expressoCoreVersion
 import AndroidConfigLib.hiltViewModelVersion
 import AndroidConfigLib.juniVersion
+import AndroidConfigLib.junitExtVersion
+import AndroidConfigLib.ktxActVersion
 import AndroidConfigLib.ktxVersion
 import AndroidConfigLib.lifeCycleVersion
-import AndroidConfigLib.materialVersion
-import AndroidConfigLib.saveStateVersion
-import AndroidConfigLib.timberVersion
-import AndroidConfigLib.junitExtVersion
-import AndroidConfigLib.cameraViewVersion
-import AndroidConfigLib.mokitoCoreVersion
-import AndroidConfigLib.textOcrVersion
-import AndroidConfigLib.mokitoLineVersion
 import AndroidConfigLib.lifecycleVersion
-import AndroidConfigLib.mokitoVersion
-import AndroidConfigLib.vMlifecyclerVersion
-import AndroidConfigLib.serviceVersion
-import AndroidConfigLib.beanVersion
-import AndroidConfigLib.ktxActVersion
 import AndroidConfigLib.liveDataVersion
-import ConfigFlavor.redFlavor
-import ConfigFlavor.greenFlavor
+import AndroidConfigLib.materialVersion
+import AndroidConfigLib.mokitoCoreVersion
+import AndroidConfigLib.mokitoLineVersion
+import AndroidConfigLib.mokitoVersion
+import AndroidConfigLib.saveStateVersion
+import AndroidConfigLib.serviceVersion
+import AndroidConfigLib.textOcrVersion
+import AndroidConfigLib.timberVersion
+import AndroidConfigLib.vMlifecyclerVersion
 import ConfigFlavor.cameraSystem
 import ConfigFlavor.fileSystem
+import ConfigFlavor.greenFlavor
+import ConfigFlavor.redFlavor
 import FlavorDimension.colorDimension
+import FlavorDimension.typeDimension
+import FlavorVersion.greenFileSystem
+import FlavorVersion.redCameraSystem
+import FlavorVersion.redFileSystem
 import SourceSet.cameraDirJava
 import SourceSet.cameraDirRes
 import SourceSet.fileDirJava
 import SourceSet.fileDirRes
-import SourceSet.redDirJava
-import SourceSet.redDirRes
 import SourceSet.greenDirJava
 import SourceSet.greenDirRes
-import FlavorDimension.typeDimension
-import FlavorVersion.greenCameraSystem
-import FlavorVersion.greenFileSystem
-import FlavorVersion.redCameraSystem
-import FlavorVersion.redFileSystem
+import SourceSet.redDirJava
+import SourceSet.redDirRes
 import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
 
 
@@ -72,7 +71,7 @@ android {
     productFlavors {
         create(cameraSystem) {
             dimension = typeDimension
-            applicationIdSuffix =".camera"
+            applicationIdSuffix = ".camera"
             versionName = redCameraSystem
         }
         create(fileSystem) {
@@ -101,7 +100,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -117,31 +115,31 @@ android {
     }
 
     sourceSets {
-        this.getByName(redFlavor){
+        this.getByName(redFlavor) {
             this.java.srcDir(redDirJava)
         }
-        this.getByName(redFlavor){
+        this.getByName(redFlavor) {
             this.res.srcDir(redDirRes)
         }
 
-        this.getByName(greenFlavor){
+        this.getByName(greenFlavor) {
             this.java.srcDir(greenDirJava)
         }
-        this.getByName(greenFlavor){
+        this.getByName(greenFlavor) {
             this.res.srcDir(greenDirRes)
         }
 
-        this.getByName(cameraSystem){
+        this.getByName(cameraSystem) {
             this.java.srcDir(cameraDirJava)
         }
-        this.getByName(cameraSystem){
+        this.getByName(cameraSystem) {
             this.res.srcDir(cameraDirRes)
         }
 
-        this.getByName(fileSystem){
+        this.getByName(fileSystem) {
             this.java.srcDir(fileDirJava)
         }
-        this.getByName(fileSystem){
+        this.getByName(fileSystem) {
             this.res.srcDir(fileDirRes)
         }
     }
@@ -167,7 +165,6 @@ spotless {
     }
 }
 
-
 dependencies {
     implementation(project(mapOf("path" to ":domain")))
 
@@ -183,16 +180,16 @@ dependencies {
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$saveStateVersion")
-    implementation ("androidx.activity:activity-ktx:$ktxActVersion")
+    implementation("androidx.activity:activity-ktx:$ktxActVersion")
     /** camera class **/
 
-    implementation ("androidx.camera:camera-camera2:$cameraVersion")
-    implementation ("androidx.camera:camera-lifecycle:$cameraVersion")
-    implementation ("androidx.camera:camera-view:$cameraViewVersion")
+    implementation("androidx.camera:camera-camera2:$cameraVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraVersion")
+    implementation("androidx.camera:camera-view:$cameraViewVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion")
 
     /** google machine learning text recognition **/
-    implementation ("com.google.android.gms:play-services-mlkit-text-recognition:$textOcrVersion")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:$textOcrVersion")
 
     /** lifecycle **/
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
@@ -212,15 +209,15 @@ dependencies {
     implementation("com.jakewharton.timber:timber:$timberVersion")
 
     /** mock **/
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion")
-    testImplementation ("org.mockito:mockito-core:$mokitoCoreVersion")
-    testImplementation ("io.mockk:mockk:$mokitoVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion")
+    testImplementation("org.mockito:mockito-core:$mokitoCoreVersion")
+    testImplementation("io.mockk:mockk:$mokitoVersion")
 
     /** unit test **/
     testImplementation("junit:junit:$juniVersion")
 
     testImplementation("androidx.arch.core:core-testing:$archCoreVersion")
-    testImplementation ("org.mockito:mockito-inline:$mokitoLineVersion")
-    androidTestImplementation ("androidx.test.ext:junit:$junitExtVersion")
+    testImplementation("org.mockito:mockito-inline:$mokitoLineVersion")
+    androidTestImplementation("androidx.test.ext:junit:$junitExtVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$expressoCoreVersion")
 }

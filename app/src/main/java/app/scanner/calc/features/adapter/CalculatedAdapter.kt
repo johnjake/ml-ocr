@@ -27,7 +27,7 @@ class CalculatedAdapter : ListAdapter<MathData, CalculatedAdapter.RecognizerView
         fun bind(data: MathData) {
             val context = binding.root.context
             binding.apply {
-                textViewInput.text =  context.getString(R.string.input_text, data.expression)
+                textViewInput.text = context.getString(R.string.input_text, data.expression)
                 textViewResult.text = context.getString(R.string.input_result, data.result)
             }
         }

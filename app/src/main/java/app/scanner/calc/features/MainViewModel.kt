@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
             ocrReader.readText(recognizer, bitmap).let { text ->
                 when {
                     text.text.isEmpty() -> ocrFlow.emit(BaseState.OnReadFailed())
-                    else ->  ocrFlow.emit(BaseState.OnReadSuccess(text))
+                    else -> ocrFlow.emit(BaseState.OnReadSuccess(text))
                 }
             }
         }
