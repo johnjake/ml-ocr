@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Red File System</string>
     <string name="button_input">Open Gallery</string>
-    <string name="variant_type">fileSystem</string>
+    <string name="variant_type">File System</string>
 </resources>
