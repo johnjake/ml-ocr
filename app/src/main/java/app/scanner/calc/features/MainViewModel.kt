@@ -8,7 +8,6 @@ import app.scanner.domain.repository.ReaderAction
 import app.scanner.domain.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -46,8 +45,8 @@ class MainViewModel @Inject constructor(
     override fun showErrorMessage(withHideLoader: Boolean, errorMsg: Throwable) {
         super.showErrorMessage(withHideLoader, errorMsg)
         emitState {
-            if (withHideLoader) {
-                ocrFlow.emit(BaseState.HideLoader)
+            when {
+                withHideLoader -> ocrFlow.emit(BaseState.HideLoader)
             }
             ocrFlow.emit(
                 BaseState.OnFailure(
