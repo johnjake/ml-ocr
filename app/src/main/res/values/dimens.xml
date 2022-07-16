@@ -30,5 +30,6 @@
     <dimen name="dimens_res_30dp">30dp</dimen>
     <dimen name="dimens_res_50dp">50dp</dimen>
     <dimen name="dimens_res_74dp">74dp</dimen>
+    <dimen name="dimens_res_100dp">100dp</dimen>
     <dimen name="dimens_res_250dp">250dp</dimen>
 </resources>
