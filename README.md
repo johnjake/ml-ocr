@@ -15,6 +15,7 @@ Used in Development:
     Architechture Pattern: MVVM
     Type: Modular
     Unit Test: Yes
+    Code Formatting: Spotless and Ktlint
     
     Features Covered:
     
