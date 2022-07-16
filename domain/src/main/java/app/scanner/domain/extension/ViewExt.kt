@@ -15,5 +15,5 @@ fun View.visible() {
 
 fun ImageView.getBitmap(): Bitmap {
     this.invalidate()
-   return this.drawable.toBitmap()
+    return this.drawable.toBitmap()
 }

@@ -23,7 +23,7 @@ class CameraBuilder(
     @NonNull private val context: Context,
     @NonNull private val previewView: PreviewView,
     @NonNull private val lifecycleOwner: LifecycleOwner
- ) {
+) {
     private val provider: CameraProvider by lazy { CameraProvider(context, previewView) }
     private lateinit var camera: Camera
     private lateinit var cameraController: CameraControl
@@ -31,10 +31,10 @@ class CameraBuilder(
 
     fun build() {
         provider.providerInstance().addListener({
-        process = provider.processProvider()
-        val preview = provider.providePreview()
-        val selector = provider.selectorProvider()
-        cameraPreview(process, selector, preview)
+            process = provider.processProvider()
+            val preview = provider.providePreview()
+            val selector = provider.selectorProvider()
+            cameraPreview(process, selector, preview)
         }, ContextCompat.getMainExecutor(context))
     }
 
@@ -47,24 +47,24 @@ class CameraBuilder(
             cameraProvider.unbindAll()
             camera = cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview)
 
-                camera.apply {
-                    when {
-                        cameraInfo.hasFlashUnit() -> {
-                            cameraController = cameraControl
-                            cameraDetails = cameraInfo
-                        }
-                        else -> {
-                            getActivity(context)?.toast(context.getString(R.string.no_flash))
-                        }
+            camera.apply {
+                when {
+                    cameraInfo.hasFlashUnit() -> {
+                        cameraController = cameraControl
+                        cameraDetails = cameraInfo
+                    }
+                    else -> {
+                        getActivity(context)?.toast(context.getString(R.string.no_flash))
                     }
                 }
+            }
         } catch (exc: Exception) {
             Timber.e("Error -> ${exc.localizedMessage}")
         }
     }
 
     private fun flashOn(flash: Boolean) {
-        when(flash) {
+        when (flash) {
             true -> {
                 cameraController.enableTorch(cameraDetails.torchState.value == TorchState.OFF)
                 cameraDetails.torchState.observe(lifecycleOwner) { torchState ->
@@ -78,10 +78,10 @@ class CameraBuilder(
         }
     }
 
-   companion object {
-       private lateinit var process: ProcessCameraProvider
-       fun closeCamera() {
-           process.unbindAll()
-       }
-   }
+    companion object {
+        private lateinit var process: ProcessCameraProvider
+        fun closeCamera() {
+            process.unbindAll()
+        }
+    }
 }
