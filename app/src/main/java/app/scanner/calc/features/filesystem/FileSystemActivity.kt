@@ -2,38 +2,41 @@ package app.scanner.calc.features.filesystem
 
 import android.graphics.Bitmap
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import app.scanner.calc.R
 import app.scanner.calc.bases.BaseActivity
+import app.scanner.calc.bases.BaseState
 import app.scanner.calc.databinding.ActivityMainBinding
+import app.scanner.calc.features.MainViewModel
 import app.scanner.calc.features.adapter.CalculatedAdapter
 import app.scanner.domain.extension.getBitmap
 import app.scanner.domain.extension.getDefaultBitmap
 import app.scanner.domain.extension.gone
-import app.scanner.domain.extension.roundOff
 import app.scanner.domain.extension.toast
 import app.scanner.domain.extension.visible
 import app.scanner.domain.filesystem.FileGallery
 import app.scanner.domain.model.MathData
 import app.scanner.domain.utils.EMPTY
-import app.scanner.domain.utils.INVALID_MATH_EXPRESSION
-import app.scanner.domain.utils.PATTERN_MATH
 import app.scanner.domain.utils.showClearDialog
-import bsh.Interpreter
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
+import kotlinx.coroutines.flow.collectLatest
+import java.util.Random
 
 class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     private val openGallery: FileGallery by lazy {
         FileGallery(this.activityResultRegistry)
     }
+    private val viewModel: MainViewModel by viewModels()
     private val calcAdapter: CalculatedAdapter by lazy { CalculatedAdapter() }
     private val listResult: MutableList<MathData>? = arrayListOf()
-    private var isScanFile: Boolean = false
     private var savedBitmap: Bitmap? = null
     private lateinit var recognizer: TextRecognizer
+    private var isScanFile: Boolean = false
 
     override fun setUpView() {
         super.setUpView()
@@ -59,6 +62,27 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
                 onClearData()
             }
         }
+    }
+
+    override fun setUpObserver() {
+        super.setUpObserver()
+        lifecycleScope.launchWhenStarted {
+            viewModel.ocrState.collectLatest { state ->
+                when (state) {
+                    is BaseState.OnSuccess -> handleSuccess(state.data)
+                    is BaseState.OnFailure -> handleFailed(state.error)
+                }
+            }
+        }
+    }
+
+    private fun handleSuccess(data: MathData) {
+        listResult?.add(data)
+        calcAdapter.submitList(listResult?.toList())
+    }
+
+    private fun handleFailed(error: String?) {
+        toast(error ?: getString(R.string.unknown_error))
     }
 
     private fun ActivityMainBinding.closeResult() {
@@ -87,37 +111,10 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
         val inputImage = InputImage.fromBitmap(bitmap, 0)
         recognizer.process(inputImage).addOnSuccessListener { text ->
             val textResult = processResult(text)
-            val mathExp = getExpression(textResult)
-            val result = solveMathEquation(mathExp)
-            listResult?.add(
-                MathData(
-                    id = savedBitmap?.generationId ?: 0,
-                    expression = mathExp,
-                    result = result.roundOff()
-                )
-            )
-            calcAdapter.submitList(listResult?.toList())
+            viewModel.getResult(textResult, savedBitmap?.generationId ?: Random().nextInt(50))
             binding.btnOpenSystem.gone()
         }.addOnFailureListener { e ->
             e.printStackTrace()
-        }
-    }
-
-    private fun getExpression(expression: String): String {
-        val mathExpression = expression.replace(PATTERN_MATH.toRegex(), EMPTY)
-        return when {
-            mathExpression.isNotEmpty() -> mathExpression
-            else -> INVALID_MATH_EXPRESSION
-        }
-    }
-
-    private fun solveMathEquation(mathExpression: String): String {
-        return try {
-            val interpreter = Interpreter()
-            interpreter.eval("result =$mathExpression")
-            interpreter["result"].toString()
-        } catch (ex: Exception) {
-            "0"
         }
     }
 
