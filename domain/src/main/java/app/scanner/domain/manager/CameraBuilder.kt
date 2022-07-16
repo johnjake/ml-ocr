@@ -46,7 +46,6 @@ class CameraBuilder(
         try {
             cameraProvider.unbindAll()
             camera = cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview)
-
             camera.apply {
                 when {
                     cameraInfo.hasFlashUnit() -> {
