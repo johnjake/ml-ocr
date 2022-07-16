@@ -14,12 +14,12 @@ fun String.spannableCustom(hexColor: String, isBold: Boolean): Spanned {
 
 fun Number.verifyContainDecimal() = floor(this.toDouble()) != this
 
-private fun verifyDecimalPoint(n: Number)
-   = floor(n.toDouble()) != n
+private fun verifyDecimalPoint(n: Number) =
+    floor(n.toDouble()) != n
 
 fun String.roundOff(): String {
     val random = this.toDouble()
-    return when(verifyDecimalPoint(random)) {
+    return when (verifyDecimalPoint(random)) {
         true -> {
             return String.format(Locale.US, "%.2f", random)
         } else -> this

@@ -9,4 +9,6 @@ open class BaseViewModel : ViewModel() {
     ) = runBlocking {
         emitAction()
     }
+
+    open fun showErrorMessage(withHideLoader: Boolean = true, errorMsg: Throwable) {}
 }

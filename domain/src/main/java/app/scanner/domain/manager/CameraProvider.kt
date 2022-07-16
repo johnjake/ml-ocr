@@ -12,7 +12,7 @@ class CameraProvider(
     private val previewView: PreviewView
 ) {
     fun providerInstance(): ListenableFuture<ProcessCameraProvider> {
-       return ProcessCameraProvider.getInstance(context)
+        return ProcessCameraProvider.getInstance(context)
     }
 
     fun processProvider(): ProcessCameraProvider {
