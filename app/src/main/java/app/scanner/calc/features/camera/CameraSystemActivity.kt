@@ -28,7 +28,6 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.runBlocking
 import java.util.Random
 
 class CameraSystemActivity : BaseActivity<ActivityMainBinding>(
@@ -146,13 +145,18 @@ class CameraSystemActivity : BaseActivity<ActivityMainBinding>(
     private fun getTextRecognition(bitmap: Bitmap) {
         binding.cardReaderLayout.visible()
         val inputImage = InputImage.fromBitmap(bitmap, 0)
-        recognizer.process(inputImage).addOnSuccessListener { text ->
-            val textResult = processResult(text)
-            viewModel.getResult(textResult, savedBitmap?.generationId ?: Random().nextInt(50))
-            calcAdapter.submitList(listResult?.toList())
-            binding.btnOpenSystem.gone()
-        }.addOnFailureListener { e ->
-            e.printStackTrace()
+        when {
+            this::recognizer.isInitialized -> {
+                recognizer.process(inputImage).addOnSuccessListener { text ->
+                    val textResult = processResult(text)
+                    viewModel.getResult(textResult, savedBitmap?.generationId ?: Random().nextInt(50))
+                    calcAdapter.submitList(listResult?.toList())
+                    binding.btnOpenSystem.gone()
+                }.addOnFailureListener { e ->
+                    e.printStackTrace()
+                }
+            }
+            else -> toast(getString(R.string.recognizer_initialized))
         }
     }
 
