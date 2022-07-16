@@ -23,6 +23,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import java.util.Random
 
@@ -69,6 +70,11 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
         lifecycleScope.launchWhenStarted {
             viewModel.ocrState.collectLatest { state ->
                 when (state) {
+                    is BaseState.ShowLoader -> binding.progress.visible()
+                    is BaseState.HideLoader -> {
+                        delay(300)
+                        binding.progress.gone()
+                    }
                     is BaseState.OnSuccess -> handleSuccess(state.data)
                     is BaseState.OnFailure -> handleFailed(state.error)
                 }
@@ -86,7 +92,7 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
     }
 
     private fun ActivityMainBinding.closeResult() {
-        textInImageLayout.gone()
+        cardReaderLayout.gone()
         previewImage.gone()
         btnOpenSystem.visible()
         if (!isScanFile) binding.btnOpenSystem.text = getString(R.string.open_gallery)
@@ -107,7 +113,7 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
     }
 
     private fun getTextRecognition(bitmap: Bitmap) {
-        binding.textInImageLayout.visible()
+        binding.cardReaderLayout.visible()
         val inputImage = InputImage.fromBitmap(bitmap, 0)
         recognizer.process(inputImage).addOnSuccessListener { text ->
             val textResult = processResult(text)

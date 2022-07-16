@@ -8,6 +8,7 @@ import app.scanner.domain.repository.ReaderAction
 import app.scanner.domain.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -23,9 +24,10 @@ class MainViewModel @Inject constructor(
     fun getResult(readInput: String, imageId: Int) {
         viewModelScope.launch(
             CoroutineExceptionHandler { _, error ->
-                showErrorMessage(false, error)
+                showErrorMessage(true, error)
             }
         ) {
+            ocrFlow.emit(BaseState.ShowLoader)
             val mathExpression = ocrReader.getExpression(readInput)
             val computed = ocrReader.solveMathEquation(mathExpression)
             ocrFlow.emit(
@@ -37,6 +39,7 @@ class MainViewModel @Inject constructor(
                     )
                 )
             )
+            ocrFlow.emit(BaseState.HideLoader)
         }
     }
 
@@ -44,7 +47,7 @@ class MainViewModel @Inject constructor(
         super.showErrorMessage(withHideLoader, errorMsg)
         emitState {
             if (withHideLoader) {
-                // todo with a loader
+                ocrFlow.emit(BaseState.HideLoader)
             }
             ocrFlow.emit(
                 BaseState.OnFailure(

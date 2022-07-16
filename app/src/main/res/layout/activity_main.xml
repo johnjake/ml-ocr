@@ -24,12 +24,12 @@
         android:visibility="gone" />
 
    <com.google.android.material.card.MaterialCardView
-    android:id="@+id/textInImageLayout"
+    android:id="@+id/cardReaderLayout"
     android:layout_margin="@dimen/dimens_res_50dp"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:visibility="gone"
     app:cardCornerRadius="@dimen/dimens_res_10dp"
+    android:visibility="gone"
     app:layout_constraintBottom_toTopOf="@id/btnOpenSystem"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -80,6 +80,15 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:listitem="@layout/item_expression" />
 
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens_res_100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
             <ImageView
                 android:id="@+id/imgClear"
                 android:layout_width="@dimen/dimens_res_30dp"
