@@ -43,11 +43,11 @@ Used in Development:
    
   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/settings.png)
    
-   File System
+      File System
    
   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/file_system.png)
   
-  Camera System
+      Camera System
   
   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/camera_system.png)
   
