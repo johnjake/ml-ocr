@@ -32,8 +32,10 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
     private val openGallery: FileGallery by lazy {
         FileGallery(this.activityResultRegistry)
     }
+    private val calcAdapter: CalculatedAdapter by lazy {
+        CalculatedAdapter()
+    }
     private val viewModel: MainViewModel by viewModels()
-    private val calcAdapter: CalculatedAdapter by lazy { CalculatedAdapter() }
     private val listResult: MutableList<MathData>? = arrayListOf()
     private var savedBitmap: Bitmap? = null
     private lateinit var recognizer: TextRecognizer
@@ -115,12 +117,17 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
     private fun getTextRecognition(bitmap: Bitmap) {
         binding.cardReaderLayout.visible()
         val inputImage = InputImage.fromBitmap(bitmap, 0)
-        recognizer.process(inputImage).addOnSuccessListener { text ->
-            val textResult = processResult(text)
-            viewModel.getResult(textResult, savedBitmap?.generationId ?: Random().nextInt(50))
-            binding.btnOpenSystem.gone()
-        }.addOnFailureListener { e ->
-            e.printStackTrace()
+        when {
+            this::recognizer.isInitialized -> {
+                recognizer.process(inputImage).addOnSuccessListener { text ->
+                    val textResult = processResult(text)
+                    viewModel.getResult(textResult, savedBitmap?.generationId ?: Random().nextInt(50))
+                    binding.btnOpenSystem.gone()
+                }.addOnFailureListener { e ->
+                    e.printStackTrace()
+                }
+            }
+            else -> toast(getString(R.string.recognizer_initialized))
         }
     }
 

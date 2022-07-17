@@ -15,4 +15,5 @@
     <string name="ml_download">Recognizer was unable to download text</string>
     <string name="camera_denied">"Camera Permission Denied"</string>
     <string name="no_text_image">No text found in the image!</string>
+    <string name="recognizer_initialized">Error: text recognizer was not initialized</string>
 </resources>
