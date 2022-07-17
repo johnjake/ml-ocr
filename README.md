@@ -39,6 +39,10 @@ Used in Development:
    
    User Interface:
    
+      Settings
+   
+  ![alt text](https://github.com/johnjake/ml-ocr/blob/master/settings.png)
+   
    File System
    
   ![alt text](https://github.com/johnjake/ml-ocr/blob/master/file_system.png)
