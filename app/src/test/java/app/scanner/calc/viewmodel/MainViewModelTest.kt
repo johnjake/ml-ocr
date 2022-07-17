@@ -3,6 +3,7 @@ package app.scanner.calc.viewmodel
 import app.scanner.calc.baserule.CoroutineTestRule
 import app.scanner.calc.bases.BaseState
 import app.scanner.calc.features.MainViewModel
+import app.scanner.domain.extension.mathValidation
 import app.scanner.domain.model.MathData
 import app.scanner.domain.repository.ReaderAction
 import app.scanner.domain.repository.ReaderRepository
@@ -79,5 +80,12 @@ class MainViewModelTest {
 
     private fun handleFailed(error: String?) {
         println("Error: $error")
+    }
+
+    @Test
+    fun `math expression validation`() {
+        val math = "()234234(4.()(500"
+        val result = math.mathValidation()
+        println("value result $result")
     }
 }
