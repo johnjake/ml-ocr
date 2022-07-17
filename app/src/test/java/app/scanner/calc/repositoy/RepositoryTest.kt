@@ -3,6 +3,7 @@ package app.scanner.calc.repositoy
 import app.scanner.calc.baserule.CoroutineTestRule
 import app.scanner.domain.repository.ReaderAction
 import app.scanner.domain.repository.ReaderRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -12,6 +13,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 @Suppress("DEPRECATION")
+@ExperimentalCoroutinesApi
 class RepositoryTest {
     @get:Rule
     val testRule = CoroutineTestRule()
