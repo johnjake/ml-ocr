@@ -156,7 +156,6 @@ class FileSystemActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding
             positiveButtonClicked = {
                 listResult?.clear()
                 calcAdapter.submitList(listResult)
-                binding.closeResult()
             }
         )
     }
