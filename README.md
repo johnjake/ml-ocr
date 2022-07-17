@@ -14,8 +14,13 @@ Used in Development:
     Language: Kotlin
     Architechture Pattern: MVVM
     Type: Modular
-    Unit Test: ViewModelTest, RepositoryTest
-    Code Formatting: Spotless and Ktlint
+    Unit Test: 
+      ● ViewModelTest, 
+      ● RepositoryTest, 
+      ● ExtensionTest
+    Code Formatting: 
+      ● Spotless 
+      ● Ktlint
     
     Features Covered:
     
