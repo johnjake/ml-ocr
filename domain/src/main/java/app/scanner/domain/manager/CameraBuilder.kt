@@ -28,6 +28,7 @@ class CameraBuilder(
     private lateinit var camera: Camera
     private lateinit var cameraController: CameraControl
     private lateinit var cameraDetails: CameraInfo
+    private lateinit var process: ProcessCameraProvider
 
     fun build() {
         provider.providerInstance().addListener({
@@ -74,13 +75,6 @@ class CameraBuilder(
                 }
             }
             else -> getActivity(context)?.toast(context.getString(R.string.flash_off))
-        }
-    }
-
-    companion object {
-        private lateinit var process: ProcessCameraProvider
-        fun closeCamera() {
-            process.unbindAll()
         }
     }
 }
