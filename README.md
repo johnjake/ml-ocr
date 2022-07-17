@@ -24,6 +24,10 @@ Used in Development:
       ● Spotless 
       ● Ktlint
     
+    Note: 
+    ktlint pre-commit script will only work and copied to <directory>\ml-ocr\.git\hooks
+    upon build/run app or using ./gradlew build.
+    
     Features Covered:
     ● Support of multiple app variants.
     ● Controlling the behavior of the app at compile time
