@@ -9,21 +9,22 @@ Used in Development:
 
     Gradle Version: 7.1.3
     Kotlin Version: 1.6.10
-    Gradle Type: DLS
+    Gradle Type: DSL
 
     Language: Kotlin
     Architechture Pattern: MVVM
     Type: Modular
+    
     Unit Test: 
       ● ViewModelTest, 
       ● RepositoryTest, 
       ● ExtensionTest
+    
     Code Formatting: 
       ● Spotless 
       ● Ktlint
     
     Features Covered:
-    
     ● Support of multiple app variants.
     ● Controlling the behavior of the app at compile time
     ● Handling different themes.
