@@ -16,7 +16,7 @@ import org.junit.runners.model.Statement
 class CoroutineTestRule : TestRule {
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
+    private val testCoroutine = TestCoroutineScope(testCoroutineDispatcher)
 
     override fun apply(base: Statement, description: Description?) = object : Statement() {
         @Throws(Throwable::class)
@@ -26,18 +26,18 @@ class CoroutineTestRule : TestRule {
             base.evaluate()
 
             Dispatchers.resetMain()
-            testCoroutineScope.cleanupTestCoroutines()
+            testCoroutine.cleanupTestCoroutines()
         }
     }
 
     fun runBlockingTest(block: suspend TestCoroutineScope.() -> Unit) =
-        testCoroutineScope.runBlockingTest { block() }
+        testCoroutine.runBlockingTest { block() }
 
     fun pauseDispatcher() {
-        testCoroutineScope.pauseDispatcher()
+        testCoroutine.pauseDispatcher()
     }
 
     fun resumeDispatcher() {
-        testCoroutineScope.resumeDispatcher()
+        testCoroutine.resumeDispatcher()
     }
 }
